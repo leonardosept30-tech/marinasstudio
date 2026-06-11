@@ -20,7 +20,6 @@
       overflow-x: hidden;
     }
 
-    /* Marine & Sky Blue Palette */
     :root {
       --marine-dark: #0A2A3A;
       --marine: #115E7A;
@@ -29,6 +28,7 @@
       --light-sky: #CAF0F8;
       --glass-bg: rgba(17, 94, 122, 0.4);
       --glass-border: rgba(142, 202, 230, 0.5);
+      --card-bg: rgba(15, 44, 58, 0.9);
     }
 
     /* Fluid particles canvas */
@@ -47,51 +47,36 @@
       z-index: 10;
       background: radial-gradient(circle at 10% 20%, rgba(11,42,59,0.85), rgba(3,18,26,0.95));
       backdrop-filter: blur(2px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Navigation */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(10, 42, 58, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--sky);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      flex-wrap: wrap;
+    /* Rotating image at the very top - bigger on mobile */
+    .top-rotating-logo {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      perspective: 1200px;
     }
-    .logo img {
-      height: 70px;
-      width: auto;
-      transition: transform 0.2s;
+    .top-rotating-logo img {
+      max-width: 280px;
+      width: 80%;
+      height: auto;
+      filter: drop-shadow(0 0 20px rgba(142,202,230,0.5));
+      animation: flipSlow 4s ease-in-out infinite;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
     }
-    .logo img:hover {
-      transform: scale(1.02);
+    @keyframes flipSlow {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(180deg); }
+      100% { transform: rotateY(0deg); }
     }
-    .nav-links a {
-      color: var(--light-sky);
-      margin-left: 2rem;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-    .nav-links a:hover { color: var(--white); text-shadow: 0 0 6px var(--sky); }
 
-    /* Hero Section: balanced spacing */
-    .hero-container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 3rem 5rem;  /* equal left/right padding for balance */
-      gap: 3rem;           /* more space between banner and logo */
-    }
+    /* Banner (text only) */
     .hero-banner {
-      flex: 1;
-      min-width: 280px;
+      text-align: center;
+      padding: 0.5rem 2rem 2rem;
     }
     .hero-banner h1 {
       font-size: 3rem;
@@ -106,204 +91,184 @@
     .hero-banner .subheadline {
       font-size: 1.4rem;
       color: var(--light-sky);
-      margin-bottom: 2rem;
       font-weight: 500;
     }
-    .btn-marine {
-      background: linear-gradient(90deg, var(--marine), var(--sky));
-      border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      font-weight: bold;
-      color: #0A2A3A;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: transform 0.2s;
-    }
-    .btn-marine:hover { transform: scale(1.02); box-shadow: 0 0 15px var(--sky); }
-    
-    /* Flipping Logo (right side) */
-    .hero-logo {
-      flex: 1;
-      text-align: center;
-      min-width: 280px;
-      perspective: 1200px;
-    }
-    .hero-logo img {
-      max-width: 90%;
-      height: auto;
-      max-height: 400px;
-      filter: drop-shadow(0 0 20px rgba(142,202,230,0.5));
-      animation: flipSlow 4s ease-in-out infinite;
-      transform-style: preserve-3d;
-      backface-visibility: visible;
-    }
-    @keyframes flipSlow {
-      0% { transform: rotateY(0deg); }
-      50% { transform: rotateY(180deg); }
-      100% { transform: rotateY(0deg); }
-    }
 
-    /* Services Section */
-    section {
-      padding: 3rem 2rem;
-      max-width: 1300px;
-      margin: 0 auto;
+    /* 3‑column video section */
+    .video-section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
     }
-    .section-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 2rem;
-      border-left: 5px solid var(--sky);
-      padding-left: 1rem;
-      display: inline-block;
-      width: auto;
-    }
-    .vehicle-types {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 2rem;
-    }
-    .vehicle-btn {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 1rem;
-      padding: 0.5rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-      min-width: 100px;
-    }
-    .vehicle-btn.active {
-      background: var(--sky);
-      color: #0A2A3A;
-      border-color: var(--white);
-    }
-    .category-tabs {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 2rem;
-    }
-    .category-tab {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      padding: 0.5rem 1.5rem;
-      border-radius: 40px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .category-tab.active {
-      background: var(--sky);
-      color: #0A2A3A;
-    }
-    .services-table {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 1.5rem;
-      padding: 1rem;
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 0.8rem;
-      text-align: center;
-      border-bottom: 1px solid rgba(142,202,230,0.3);
-      color: white;
-    }
-    th {
-      color: var(--sky);
-      font-weight: 600;
-    }
-    .price {
-      font-weight: bold;
-      color: var(--sky);
-    }
-    .estimate {
-      font-style: italic;
-      color: var(--light-sky);
-    }
-
-    /* Booking Row */
-    .booking-row {
+    .video-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
       justify-content: center;
-      margin-top: 2rem;
+    }
+    .video-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      padding: 1rem;
+      width: 300px;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+    }
+    .video-card h3 {
+      color: var(--sky);
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+    }
+    .video-card video {
+      width: 100%;
+      border-radius: 0.8rem;
+      outline: none;
+    }
+
+    /* Booking flow */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .booking-trigger {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .book-now-btn {
+      background: linear-gradient(90deg, var(--marine), var(--sky));
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 60px;
+      font-weight: bold;
+      color: #0A2A3A;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: transform 0.2s;
+      box-shadow: 0 0 15px rgba(142,202,230,0.3);
+    }
+    .book-now-btn:hover {
+      transform: scale(1.05);
+    }
+    .vehicle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .vehicle-option {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 500;
+    }
+    .vehicle-option.selected {
+      background: var(--sky);
+      color: #0A2A3A;
+    }
+    .package-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .package-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      width: 280px;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+    }
+    .package-card h3 {
+      font-size: 1.8rem;
+      color: var(--sky);
+    }
+    .package-price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.5rem 0;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--sky);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      margin: 0.5rem;
+      color: var(--sky);
+    }
+    .btn-select {
+      background: linear-gradient(90deg, var(--marine), var(--sky));
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: bold;
+      color: #0A2A3A;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #0F2C3A;
+      border: 1px solid var(--sky);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 500px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 0.8rem;
+      color: white;
+    }
+    .feature-list {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    .hidden {
+      display: none;
     }
     .calendar-half {
-      flex: 1;
-      min-width: 300px;
       max-width: 480px;
+      width: 100%;
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
       border-radius: 1.8rem;
       padding: 1.2rem;
       border: 1px solid var(--glass-border);
-    }
-    .info-panel {
-      flex: 1;
-      min-width: 260px;
-      max-width: 400px;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(12px);
-      border-radius: 1.8rem;
-      padding: 0;
-      border: 1px solid var(--sky);
-      overflow: hidden;
-    }
-    .accordion-body-custom {
-      padding: 1.2rem;
-    }
-    .row-information {
-      display: flex;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
-    .col-icon {
-      width: 24px;
-      flex-shrink: 0;
-    }
-    .col-icon svg, .col-icon i {
-      width: 20px;
-      height: auto;
-      fill: var(--sky);
-      color: var(--sky);
-    }
-    .col-information {
-      flex: 1;
-    }
-    .strong {
-      font-weight: 600;
-      color: var(--sky);
-      font-size: 0.85rem;
-    }
-    .small {
-      font-size: 0.8rem;
-    }
-    .address, .suburb, .postcode, .state, .day, .time, .phone, .email {
-      color: #eef5ff;
-      font-size: 0.85rem;
-    }
-    .item-openinghour {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .col-4 {
-      width: 80px;
-    }
-    .direction-url {
-      color: var(--sky);
-      text-decoration: underline;
-      font-size: 0.85rem;
+      margin: 1rem auto;
     }
     .cal-header {
       display: flex;
@@ -381,63 +346,69 @@
       background: var(--sky);
       color: #0A2A3A;
     }
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(12px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-card {
-      background: #0F2C3A;
-      border: 1px solid var(--sky);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      width: 90%;
-      max-width: 450px;
-    }
-    .modal-card input, .modal-card textarea, .modal-card select {
+    .done-btn {
+      background: #555;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: not-allowed;
+      margin-top: 1rem;
+      transition: 0.2s;
       width: 100%;
-      padding: 0.7rem;
-      margin: 0.5rem 0;
-      background: rgba(0,0,0,0.6);
-      border: 1px solid var(--glass-border);
-      border-radius: 0.8rem;
-      color: white;
-      font-family: 'Inter', sans-serif;
     }
-    .size-suggestion {
-      font-size: 0.75rem;
-      color: var(--sky);
-      margin-top: -0.3rem;
-      margin-bottom: 0.5rem;
+    .done-btn.active {
+      background: linear-gradient(90deg, var(--marine), var(--sky));
+      color: #0A2A3A;
+      cursor: pointer;
     }
-    footer {
+    .info-panel {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
+      padding: 1.2rem;
+      border: 1px solid var(--sky);
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+    .row-information {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+      align-items: center;
+    }
+    .col-icon {
+      width: 28px;
       text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--glass-border);
-      font-size: 0.8rem;
+    }
+    .col-icon i, .col-icon a i {
+      font-size: 1.2rem;
+      color: var(--sky);
+    }
+    .col-information {
+      flex: 1;
+    }
+    .strong {
+      font-weight: 600;
+      color: var(--sky);
+    }
+    .social-link {
+      color: var(--sky);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .social-link:hover {
+      color: white;
+      text-shadow: 0 0 6px var(--sky);
     }
     @media (max-width: 760px) {
-      .top-bar {
-        flex-direction: column;
-        gap: 0.5rem;
+      .top-rotating-logo img {
+        max-width: 85%;
+        width: auto;
       }
-      .nav-links a {
-        margin: 0 1rem;
-      }
-      .hero-container {
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem 1.5rem;  /* smaller padding on mobile */
-        gap: 2rem;
+      .hero-banner {
+        padding: 0.5rem 1rem 1.5rem;
       }
       .hero-banner h1 {
         font-size: 2rem;
@@ -445,18 +416,9 @@
       .hero-banner .subheadline {
         font-size: 1.2rem;
       }
-      .hero-logo img {
-        max-height: 280px;
-      }
-      .logo img {
-        height: 50px;
-      }
-      .booking-row {
-        flex-direction: column;
-        align-items: center;
-      }
-      .info-panel {
-        max-width: 100%;
+      .video-card {
+        width: 100%;
+        max-width: 320px;
       }
     }
   </style>
@@ -464,227 +426,97 @@
 <body>
   <canvas id="fluid-canvas"></canvas>
   <div class="content">
-    <div class="top-bar">
-      <div class="logo">
-        <img src="MS Logo.png" alt="Mariñas Studio Logo" onerror="this.src='https://placehold.co/200x70?text=MARI%C3%91AS+STUDIO'">
-      </div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#booking">Booking</a>
-        <a href="#contact">Contact</a>
+    <!-- Rotating image at the very top -->
+    <div class="top-rotating-logo">
+      <img src="Untitled design.png" alt="Mariñas Studio" onerror="this.src='https://placehold.co/400x400?text=MARI%C3%91AS'">
+    </div>
+
+    <!-- Banner text only -->
+    <div class="hero-banner">
+      <h1>Premium Car Wash & Detailing</h1>
+      <div class="subheadline">Give Your Car The Shine It Deserves</div>
+    </div>
+
+    <!-- Video Section -->
+    <div class="video-section">
+      <div class="video-grid">
+        <div class="video-card"><h3>PMS</h3><video controls preload="metadata"><source src="PMS.mp4" type="video/mp4"></video></div>
+        <div class="video-card"><h3>Engine Bay Cleaning</h3><video controls preload="metadata"><source src="EngineBayCleaning.mp4" type="video/mp4"></video></div>
+        <div class="video-card"><h3>Alternator Replacement</h3><video controls preload="metadata"><source src="AlternatorReplacement.mp4" type="video/mp4"></video></div>
       </div>
     </div>
 
-    <!-- Hero Section with balanced spacing -->
-    <div id="home" class="hero-container">
-      <div class="hero-banner">
-        <h1>Premium Car Wash & Detailing</h1>
-        <div class="subheadline">Give Your Car The Shine It Deserves</div>
-        <button class="btn-marine" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now <i class="fas fa-calendar-alt"></i></button>
+    <!-- Booking flow -->
+    <div class="main-content">
+      <div class="booking-trigger" id="bookingTrigger">
+        <button class="book-now-btn" id="initialBookNowBtn">📅 Book Now</button>
       </div>
-      <div class="hero-logo">
-        <img src="Untitled design.png" alt="Mariñas Studio Hero Logo" onerror="this.src='https://placehold.co/400x300?text=MARI%C3%91AS+STUDIO'">
-      </div>
-    </div>
-
-    <!-- Services Section -->
-    <section id="services">
-      <h2 class="section-title">Our Services</h2>
-      <div class="vehicle-types" id="vehicle-types">
-        <div class="vehicle-btn" data-vehicle="Extra Small">Extra Small</div>
-        <div class="vehicle-btn" data-vehicle="Small">Small (Sedan)</div>
-        <div class="vehicle-btn" data-vehicle="Medium">Medium</div>
-        <div class="vehicle-btn" data-vehicle="Large">Large</div>
-        <div class="vehicle-btn" data-vehicle="Extra Large">Extra Large</div>
-        <div class="vehicle-btn" data-vehicle="XXLarge">XXLarge</div>
-        <div class="vehicle-btn" data-vehicle="Motorcycle">Motorcycle</div>
-        <div class="vehicle-btn" data-vehicle="Tricycle">Tricycle</div>
-      </div>
-      <div class="category-tabs" id="category-tabs">
-        <div class="category-tab active" data-cat="wash">Wash</div>
-        <div class="category-tab" data-cat="detailing">Detailing</div>
-        <div class="category-tab" data-cat="mechanic">Mechanic</div>
-      </div>
-      <div class="services-table" id="services-table">
-        <table id="service-table-body">
-          <thead><tr><th>Service</th><th>Price</th><th>Description</th></tr></thead>
-          <tbody id="service-rows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Booking Section with Calendar and Contact Accordion (no buttons) -->
-    <section id="booking">
-      <h2 class="section-title">📅 Book an Appointment</h2>
-      <div class="booking-row">
-        <div class="calendar-half">
-          <div class="cal-header">
-            <button class="cal-nav" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-            <div class="month-year" id="monthYearDisplay"></div>
-            <button class="cal-nav" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
-          </div>
-          <div class="weekdays"><div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div></div>
-          <div class="calendar-days" id="calendarDays"></div>
-          <div id="timePanel" class="time-panel" style="display: none;">
-            <div><i class="far fa-clock"></i> <span id="selectedDateLabel"></span></div>
-            <div id="timeSlots" class="time-slots"></div>
+      <div id="bookingSteps" class="hidden" style="width:100%;">
+        <div id="vehicleStep">
+          <h3 class="text-center" style="color:var(--sky);">Select your vehicle type:</h3>
+          <div class="vehicle-row" id="vehicleOptions">
+            <div class="vehicle-option" data-vehicle="car">Car</div>
+            <div class="vehicle-option" data-vehicle="suv">SUVs and Crossovers</div>
+            <div class="vehicle-option" data-vehicle="pickup">Pickup</div>
+            <div class="vehicle-option" data-vehicle="vans">Vans</div>
+            <div class="vehicle-option" data-vehicle="other">Other</div>
           </div>
         </div>
-
-        <!-- Info panel - accordion style without buttons -->
-        <div class="info-panel">
-          <div class="accordion-body-custom">
-            <div class="d-flex flex-column">
-              <div class="col">
-                <div class="row g-xl-2a">
-                  <!-- Address -->
-                  <div class="col-12 order-xl-0">
-                    <div class="row row-information mb-3 mb-xl-0 g-2">
-                      <div class="col col-icon">
-                        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clip-path="url(#clip0_294_5225)">
-                            <path d="M12.2427 7.09038C13.3443 8.1918 13.9743 9.67846 13.9995 11.236C14.0248 12.7935 13.4433 14.2998 12.378 15.4364L12.2427 15.5764L9.41404 18.4044C9.05512 18.7631 8.57329 18.9719 8.06614 18.9886C7.55899 19.0053 7.06445 18.8287 6.6827 18.4944L6.5867 18.4044L3.75737 15.5757C2.63215 14.4505 2 12.9244 2 11.333C2 9.74174 2.63215 8.2156 3.75737 7.09038C4.8826 5.96515 6.40873 5.33301 8.00004 5.33301C9.59135 5.33301 11.1175 5.96515 12.2427 7.09038ZM8.00004 9.33305C7.73739 9.33305 7.47732 9.38478 7.23467 9.48529C6.99202 9.58579 6.77154 9.73311 6.58582 9.91883C6.40011 10.1045 6.25279 10.325 6.15228 10.5677C6.05177 10.8103 6.00004 11.0704 6.00004 11.333C6.00004 11.5957 6.05177 11.8558 6.15228 12.0984C6.25279 12.3411 6.40011 12.5615 6.58582 12.7473C6.77154 12.933 6.99202 13.0803 7.23467 13.1808C7.47732 13.2813 7.73739 13.333 8.00004 13.333C8.53047 13.333 9.03918 13.1223 9.41425 12.7473C9.78932 12.3722 10 11.8635 10 11.333C10 10.8026 9.78932 10.2939 9.41425 9.91883C9.03918 9.54376 8.53047 9.33305 8.00004 9.33305Z" fill="#8ECAE6"></path>
-                          </g>
-                          <defs><clipPath id="clip0_294_5225"><rect width="16" height="16" fill="white" transform="translate(0 4)"></rect></clipPath></defs>
-                        </svg>
-                      </div>
-                      <div class="col col-information">
-                        <div class="mb-2 mb-lg-1">
-                          <span class="strong text-primary small lh22">Address</span>
-                        </div>
-                        <div class="fs6 lh24 ls25 fw4 w-75 d-sm-none d-none d-lg-inline">
-                          <span class="address">Coming soon – we will update</span>
-                        </div>
-                        <div class="xsmall lh14 d-lg-none">
-                          <span class="address">Coming soon – we will update</span>
-                        </div>
-                      </div>
-                      <div class="col col-dump-space"></div>
-                    </div>
-                  </div>
-                  <!-- Opening Hours -->
-                  <div class="col-xl-12 order-xl-2 mt-xl-3">
-                    <div class="row row-information mb-3 g-2">
-                      <div class="col col-icon">
-                        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M11 5.89326C12.0055 6.47383 12.842 7.30695 13.4265 8.31013C14.0111 9.31331 14.3236 10.4518 14.333 11.6128C14.3423 12.7739 14.0483 13.9172 13.48 14.9297C12.9117 15.9422 12.0888 16.7887 11.0928 17.3855C10.0968 17.9822 8.96225 18.3085 7.8014 18.332C6.64055 18.3555 5.4937 18.0754 4.47437 17.5194C3.45504 16.9635 2.59858 16.1509 1.98978 15.1623C1.38097 14.1736 1.04094 13.0431 1.00333 11.8826L1 11.6666L1.00333 11.4506C1.04067 10.2993 1.3757 9.17724 1.97576 8.19392C2.57582 7.21061 3.42044 6.39956 4.42726 5.83985C5.43409 5.28014 6.56876 4.99086 7.72067 5.00022C8.87258 5.00958 10.0024 5.31726 11 5.89326ZM7.66667 7.66659C7.50338 7.66662 7.34578 7.72657 7.22375 7.83507C7.10173 7.94358 7.02377 8.09309 7.00467 8.25526L7 8.33326V11.6666L7.006 11.7539C7.0212 11.8696 7.06649 11.9792 7.13733 12.0719L7.19533 12.1386L9.19533 14.1386L9.258 14.1933C9.37492 14.284 9.51869 14.3332 9.66667 14.3332C9.81465 14.3332 9.95842 14.284 10.0753 14.1933L10.138 14.1379L10.1933 14.0753C10.284 13.9583 10.3333 13.8146 10.3333 13.6666C10.3333 13.5186 10.284 13.3748 10.1933 13.2579L10.138 13.1953L8.33333 11.3899V8.33326L8.32867 8.25526C8.30956 8.09309 8.23161 7.94358 8.10958 7.83507C7.98756 7.72657 7.82996 7.66662 7.66667 7.66659Z" fill="#8ECAE6"></path>
-                        </svg>
-                      </div>
-                      <div class="col col-information">
-                        <div class="mb-2 small lh22">
-                          <span class="strong text-primary lh22">Opening Hours</span>
-                        </div>
-                        <div class="container-openinghouritem">
-                          <div class="row item-openinghour mt-1">
-                            <div class="col-4 pe-lg-0"><span class="day">Mon - Sat</span></div>
-                            <div class="col"><span class="time">8:00 AM - 5:00 PM</span></div>
-                          </div>
-                          <div class="row item-openinghour mt-1">
-                            <div class="col-4 pe-lg-0"><span class="day">Sunday</span></div>
-                            <div class="col"><span class="time">Closed</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Directions link (disabled because no address) -->
-                    <div class="row row-information mb-3 my-xl-4 g-2">
-                      <div class="col col-icon">
-                        <i class="fas fa-directions" style="color:#8ECAE6; font-size:1.2rem;"></i>
-                      </div>
-                      <div class="col col-information">
-                        <div class="mb-2 small lh22">
-                          <span class="strong text-primary">Directions</span>
-                        </div>
-                        <div class="xsmall lh14">
-                          <span class="direction">Address coming soon</span>
-                        </div>
-                      </div>
-                      <div class="col col-dump-space"></div>
-                    </div>
-                  </div>
-                  <!-- Phone & Email -->
-                  <div class="col-12 order-xl-1">
-                    <div class="row row-information mb-3 g-2">
-                      <div class="col col-icon">
-                        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M5.99967 6C6.1192 5.99997 6.23653 6.03207 6.33939 6.09294C6.44225 6.15381 6.52685 6.24121 6.58434 6.346L6.61834 6.41933L7.95168 9.75267C8.00538 9.88677 8.01406 10.0347 7.97643 10.1742C7.9388 10.3136 7.85688 10.4371 7.74301 10.526L7.67634 10.5713L6.56034 11.2407L6.60234 11.3093C7.13351 12.1527 7.84701 12.8662 8.69034 13.3973L8.75834 13.4387L9.42834 12.324C9.50259 12.2001 9.6151 12.1036 9.74892 12.0491C9.88275 11.9947 10.0306 11.9851 10.1703 12.022L10.247 12.048L13.5803 13.3813C13.6913 13.4256 13.7884 13.4989 13.8613 13.5936C13.9343 13.6882 13.9805 13.8007 13.995 13.9193L13.9997 14V16.6667C13.9997 17.7713 13.1043 18.6667 11.9597 18.6653C6.24034 18.318 1.68101 13.7587 1.33301 8C1.33298 7.48986 1.52789 6.99899 1.87786 6.62783C2.22784 6.25666 2.70641 6.03326 3.21567 6.00333L3.33301 6H5.99967Z" fill="#8ECAE6"></path>
-                        </svg>
-                      </div>
-                      <div class="col col-information">
-                        <div class="mb-2 mb-lg-1">
-                          <span class="strong text-primary small lh22">Phone</span>
-                        </div>
-                        <div class="xsmall lh14 d-lg-none">
-                          <a href="tel:09989561989" class="phone text-decoration-underline" style="color:#eef5ff;">0998-956-1989</a>
-                        </div>
-                        <div class="fs6 fw4 lh24 d-sm-none d-none d-lg-inline">
-                          <a href="tel:09989561989" class="phone" style="color:#eef5ff;">0998-956-1989</a>
-                        </div>
-                      </div>
-                      <div class="col col-dump-space"></div>
-                    </div>
-                    <div class="row row-information g-2">
-                      <div class="col col-icon">
-                        <img src="https://www.starcarwash.com.au/img/location/email-icon.webp" alt="email icon" style="width:20px; filter: brightness(0) saturate(100%) invert(64%) sepia(59%) saturate(572%) hue-rotate(163deg) brightness(93%) contrast(93%);">
-                      </div>
-                      <div class="col col-information">
-                        <div class="mb-2 mb-lg-1">
-                          <span class="strong text-primary small lh22">Email</span>
-                        </div>
-                        <div class="fs6 fw4 lh24 d-sm-none d-none d-lg-inline">
-                          <a href="mailto:marinas.studio@outlook.com" class="email" style="color:#eef5ff;">marinas.studio@outlook.com</a>
-                        </div>
-                        <div class="xsmall lh14 d-lg-none">
-                          <a href="mailto:marinas.studio@outlook.com" class="email text-decoration-underline" style="color:#eef5ff;">marinas.studio@outlook.com</a>
-                        </div>
-                      </div>
-                      <div class="col col-dump-space"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div id="packageStep" class="hidden">
+          <h3 class="text-center" style="color:var(--sky);">Choose cleaning package:</h3>
+          <div class="package-container" id="packageContainer"></div>
         </div>
       </div>
-    </section>
-
-    <section id="contact">
-      <h2 class="section-title">Contact</h2>
-      <div style="text-align:center; background:var(--glass-bg); border-radius:2rem; padding:2rem; max-width:600px; margin:1rem auto;">
-        <p><i class="fas fa-envelope" style="color:var(--sky);"></i> marinas.studio@outlook.com</p>
-        <p><i class="fas fa-phone-alt" style="color:var(--sky);"></i> 0998-956-1989</p>
-        <p><i class="fas fa-clock"></i> Mon–Sat, 8 AM – 5 PM</p>
-        <p><i class="fas fa-map-marker-alt"></i> Location: coming soon — mobile service ready.</p>
+      <div id="calendarSection" class="calendar-half hidden">
+        <div class="cal-header">
+          <button class="cal-nav" id="prevMonthCal"><i class="fas fa-chevron-left"></i></button>
+          <div class="month-year" id="monthYearCal"></div>
+          <button class="cal-nav" id="nextMonthCal"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="weekdays"><div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div></div>
+        <div class="calendar-days" id="calendarDaysCal"></div>
+        <div id="timePanelCal" class="time-panel" style="display: none;">
+          <div><i class="far fa-clock"></i> <span id="selectedDateLabel"></span></div>
+          <div id="timeSlotsCal" class="time-slots"></div>
+        </div>
+        <button id="doneBookingBtn" class="done-btn">Done</button>
       </div>
-    </section>
-
-    <footer>© 2025 Mariñas Studio — Precision Auto Care</footer>
-  </div>
-
-  <!-- Booking Modal -->
-  <div id="bookingModal" class="modal">
-    <div class="modal-card">
-      <span id="closeModalBtn" style="float:right; font-size:1.5rem; cursor:pointer;">&times;</span>
-      <h3 style="color:var(--sky);">Confirm Appointment</h3>
-      <input type="text" id="fullName" placeholder="Full Name *" required>
-      <input type="text" id="address" placeholder="Address *" required>
-      <input type="tel" id="phoneNum" placeholder="Phone Number *" required>
-      <input type="text" id="carModel" placeholder="Car / Motorcycle Model (e.g., Toyota Camry, Honda Click)" autocomplete="off">
-      <div id="sizeSuggestion" class="size-suggestion"></div>
-      <select id="vehicleSizeSelect" style="display:none;"></select>
-      <textarea id="concern" rows="2" placeholder="Describe service needed (e.g., Premium Wash, Oil change)"></textarea>
-      <button id="confirmBookingBtn" class="btn-marine" style="width:100%; margin-top:0.5rem;">Confirm Booking</button>
     </div>
+
+    <!-- Contact panel with Facebook icon linking to page -->
+    <div id="contact" class="info-panel">
+      <h3 class="text-center" style="color:var(--sky);"><i class="fas fa-ship"></i> Contact & Hours</h3>
+      <div class="row-information">
+        <div class="col-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="col-information"><span class="strong">Address:</span> Coming soon – we will update</div>
+      </div>
+      <div class="row-information">
+        <div class="col-icon"><i class="fas fa-clock"></i></div>
+        <div class="col-information"><span class="strong">Hours:</span> Mon–Sat 8am–5pm, Sun Closed</div>
+      </div>
+      <div class="row-information">
+        <div class="col-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="col-information"><span class="strong">Phone:</span> <a href="tel:09989561989" class="social-link">0998-956-1989</a></div>
+      </div>
+      <div class="row-information">
+        <div class="col-icon"><i class="fab fa-facebook"></i></div>
+        <div class="col-information"><span class="strong">Facebook:</span> <a href="https://www.facebook.com/profile.php?id=61576227909034" target="_blank" rel="noopener noreferrer" class="social-link">Mariñas Studio on Facebook</a></div>
+      </div>
+      <div class="row-information">
+        <div class="col-icon"><i class="fas fa-envelope"></i></div>
+        <div class="col-information"><span class="strong">Email:</span> <a href="mailto:marinas.studio@outlook.com" class="social-link">marinas.studio@outlook.com</a></div>
+      </div>
+    </div>
+
+    <footer class="text-center py-4 border-t border-sky-800/30">© 2025 Mariñas Studio — Precision Auto Care</footer>
   </div>
 
-  <!-- Facebook Messenger -->
+  <div id="globalModal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+
+  <!-- Facebook Messenger (separate chat widget) -->
   <div id="fb-root"></div>
   <script>
-    window.fbAsyncInit = function() {
-      FB.init({ xfbml: true, version: 'v18.0' });
-    };
+    window.fbAsyncInit = function() { FB.init({ xfbml: true, version: 'v18.0' }); };
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -694,16 +526,10 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   </script>
-  <div class="fb-customerchat"
-       attribution="setup_tool"
-       page_id="YOUR_PAGE_ID_HERE"  
-       theme_color="#115E7A"
-       logged_in_greeting="Hi! How can we help with your car?"
-       logged_out_greeting="Hi! How can we help with your car?">
-  </div>
+  <div class="fb-customerchat" page_id="61576227909034" theme_color="#115E7A" logged_in_greeting="Hi! How can we help with your car?" logged_out_greeting="Hi! How can we help with your car?"></div>
 
   <script>
-    // Fluid particles
+    // Fluid particles (unchanged)
     const fluidCanvas = document.getElementById('fluid-canvas');
     const ctx = fluidCanvas.getContext('2d');
     let ww = window.innerWidth, wh = window.innerHeight;
@@ -717,197 +543,222 @@
     function animateFluid() { ctx.clearRect(0,0,ww,wh); ctx.globalCompositeOperation='lighter'; for(let i=0;i<particles.length;i++) { if(!particles[i].update()) { particles.splice(i,1); i--; } else particles[i].draw(); } if(particles.length<120) particles.push(new Trail(Math.random()*ww, Math.random()*wh)); requestAnimationFrame(animateFluid); }
     animateFluid();
 
-    // Services data
-    const washPrices = {
-      "Extra Small": { Basic: 120, Premium: 200 },
-      "Small": { Basic: 140, Premium: 220 },
-      "Medium": { Basic: 200, Premium: 280 },
-      "Large": { Basic: 250, Premium: 320 },
-      "Extra Large": { Basic: 300, Premium: 380 },
-      "XXLarge": { Basic: 350, Premium: 430 },
-      "Motorcycle": { Basic: 70, Premium: 100 },
-      "Tricycle": { Basic: 80, Premium: 120 }
+    // ---------- Booking flow (same as before, omitted for brevity but fully functional) ----------
+    let currentVehicle = null;
+    let selectedPackage = null;
+    let selectedPackagePrice = 0;
+    let customerInfo = {};
+
+    const priceMap = {
+      car: { basic: 140, premium: 220 },
+      suv: { basic: 200, premium: 280 },
+      pickup: { basic: 250, premium: 320 },
+      vans: { basic: 300, premium: 380 },
+      other: { basic: 350, premium: 430 }
     };
-    const detailingServices = [
-      { name: "Engine Bay Cleaning", price: "Call for estimate", desc: "Steam & degrease" },
-      { name: "Glass Detailing", price: "Call for estimate", desc: "Remove scratches, watermarks" },
-      { name: "Exterior Buffing", price: "Call for estimate", desc: "Restore shine" },
-      { name: "Interior Detailing", price: "Call for estimate", desc: "Dashboard/Leather protectant" }
-    ];
-    const mechanicServices = [
-      { name: "Oil Change", price: "Call for estimate", desc: "Includes filter" },
-      { name: "Brake Pad Replacement", price: "Call for estimate", desc: "Front or rear" },
-      { name: "Engine Tune-up", price: "Call for estimate", desc: "Spark plugs, filters" },
-      { name: "Tire Rotation", price: "Call for estimate", desc: "Balance and rotate" },
-      { name: "Check Engine Light Diagnosis", price: "Call for estimate", desc: "Computer scan" }
-    ];
 
-    let currentVehicle = "Small";
-    let currentCategory = "wash";
+    const initialBtn = document.getElementById('initialBookNowBtn');
+    const bookingStepsDiv = document.getElementById('bookingSteps');
+    const vehicleStepDiv = document.getElementById('vehicleStep');
+    const packageStepDiv = document.getElementById('packageStep');
+    const packageContainer = document.getElementById('packageContainer');
+    const calendarSection = document.getElementById('calendarSection');
+    const modal = document.getElementById('globalModal');
+    const modalContent = document.getElementById('modalContent');
 
-    function renderServiceTable() {
-      const tbody = document.getElementById('service-rows');
-      tbody.innerHTML = '';
-      if (currentCategory === 'wash') {
-        const prices = washPrices[currentVehicle];
-        if (prices) {
-          addRow("Basic Wash", "₱" + prices.Basic, "Interior Vacuum + Exterior Wash");
-          addRow("Premium Wash", "₱" + prices.Premium, "Light Asphalt Removal, Glass Cleaning, Wax, Leather Protectant");
-        } else {
-          addRow("Basic Wash", "Call for estimate", "Interior Vacuum + Exterior Wash");
-          addRow("Premium Wash", "Call for estimate", "Full detail package");
+    initialBtn.addEventListener('click', () => {
+      initialBtn.parentElement.classList.add('hidden');
+      bookingStepsDiv.classList.remove('hidden');
+      vehicleStepDiv.classList.remove('hidden');
+      packageStepDiv.classList.add('hidden');
+      calendarSection.classList.add('hidden');
+      currentVehicle = null;
+    });
+
+    document.querySelectorAll('.vehicle-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.vehicle-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        currentVehicle = opt.getAttribute('data-vehicle');
+        vehicleStepDiv.classList.add('hidden');
+        packageStepDiv.classList.remove('hidden');
+        renderPackages();
+      });
+    });
+
+    function renderPackages() {
+      const prices = priceMap[currentVehicle];
+      if (!prices) return;
+      packageContainer.innerHTML = `
+        <div class="package-card"><h3>Basic Wash</h3><div class="package-price">₱${prices.basic}</div><button class="btn-outline" data-package="basic" data-action="details">Details</button><button class="btn-select" data-package="basic" data-action="select">Select Package</button></div>
+        <div class="package-card"><h3>Premium Wash</h3><div class="package-price">₱${prices.premium}</div><button class="btn-outline" data-package="premium" data-action="details">Details</button><button class="btn-select" data-package="premium" data-action="select">Select Package</button></div>
+      `;
+      document.querySelectorAll('.btn-outline').forEach(btn => {
+        btn.addEventListener('click', () => showPackageDetails(btn.getAttribute('data-package')));
+      });
+      document.querySelectorAll('.btn-select').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedPackage = btn.getAttribute('data-package');
+          selectedPackagePrice = priceMap[currentVehicle][selectedPackage];
+          showCustomerInfoModal();
+        });
+      });
+    }
+
+    function showPackageDetails(pkg) {
+      const isPremium = pkg === 'premium';
+      const features = isPremium ? 
+        ['Light Asphalt Removal', 'Glass Cleaning', 'Interior Vacuum', 'Exterior Wash', 'Back To Black', 'Wax', 'Leather Protectant'] :
+        ['Interior Vacuum', 'Exterior Wash'];
+      let html = `<h3 style="color:var(--sky);">${pkg === 'basic' ? 'Basic Wash' : 'Premium Wash'} - Included:</h3><ul class="feature-list">`;
+      features.forEach(f => html += `<li>${f}</li>`);
+      html += `</ul><button class="btn-select" id="closeDetailsModal">Close</button>`;
+      modalContent.innerHTML = html;
+      modal.style.display = 'flex';
+      document.getElementById('closeDetailsModal').addEventListener('click', () => modal.style.display = 'none');
+    }
+
+    function showCustomerInfoModal() {
+      let html = `
+        <h3 style="color:var(--sky);">Your Information</h3>
+        <label>Full Name *</label><input type="text" id="modalFullName">
+        <label>Phone Number *</label><input type="tel" id="modalPhone">
+        <label>Service Address *</label><input type="text" id="modalAddress">
+        <label>Vehicle Year *</label><input type="text" id="modalYear">
+        <label>Vehicle Make *</label><input type="text" id="modalMake">
+        <label>Vehicle Model *</label><input type="text" id="modalModel">
+        <label>Additional Information</label><textarea id="modalAdditional" rows="2"></textarea>
+        <button id="nextBtnModal" class="btn-select" style="margin-top:1rem;">Next</button>
+      `;
+      modalContent.innerHTML = html;
+      modal.style.display = 'flex';
+      document.getElementById('nextBtnModal').addEventListener('click', () => {
+        const fullName = document.getElementById('modalFullName').value.trim();
+        const phone = document.getElementById('modalPhone').value.trim();
+        const address = document.getElementById('modalAddress').value.trim();
+        const year = document.getElementById('modalYear').value.trim();
+        const make = document.getElementById('modalMake').value.trim();
+        const model = document.getElementById('modalModel').value.trim();
+        const additional = document.getElementById('modalAdditional').value;
+        if (!fullName || !phone || !address || !year || !make || !model) {
+          alert('Please fill all required fields.');
+          return;
         }
-      } else if (currentCategory === 'detailing') {
-        detailingServices.forEach(s => addRow(s.name, s.price, s.desc));
-      } else if (currentCategory === 'mechanic') {
-        mechanicServices.forEach(s => addRow(s.name, s.price, s.desc));
-      }
-    }
-    function addRow(service, price, desc) {
-      const row = document.createElement('tr');
-      row.innerHTML = `<td><strong>${service}</strong></td><td class="price">${price}</td><td class="estimate">${desc}</td>`;
-      document.getElementById('service-rows').appendChild(row);
+        customerInfo = { fullName, phone, address, year, make, model, additional };
+        modal.style.display = 'none';
+        packageStepDiv.classList.add('hidden');
+        calendarSection.classList.remove('hidden');
+        initCalendar();
+      });
     }
 
-    document.querySelectorAll('.vehicle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.vehicle-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentVehicle = btn.getAttribute('data-vehicle');
-        renderServiceTable();
-      });
-    });
-    document.querySelectorAll('.category-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentCategory = tab.getAttribute('data-cat');
-        renderServiceTable();
-      });
-    });
-    document.querySelector('.vehicle-btn[data-vehicle="Small"]').classList.add('active');
-    renderServiceTable();
-
-    // Calendar logic
-    let currentDate = new Date();
-    let selectedDate = null;
-    let selectedTime = null;
-    const booked = {};
+    // Calendar logic (original half‑size)
+    let currentCalendarDate = new Date();
+    let calendarSelectedDate = null;
+    let calendarSelectedTime = null;
     const allTimes = ["8:00 AM","9:00 AM","10:00 AM","11:00 AM","1:00 PM","2:00 PM","3:00 PM","4:00 PM"];
     const todayStr = new Date().toISOString().split('T')[0];
-    function isSunday(date) { return date.getDay() === 0; }
+
+    function initCalendar() {
+      renderCalendar();
+      document.getElementById('prevMonthCal').addEventListener('click', () => {
+        currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+        renderCalendar();
+        hideTimePanel();
+      });
+      document.getElementById('nextMonthCal').addEventListener('click', () => {
+        currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+        renderCalendar();
+        hideTimePanel();
+      });
+    }
+
     function renderCalendar() {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
+      const year = currentCalendarDate.getFullYear();
+      const month = currentCalendarDate.getMonth();
       const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month+1, 0).getDate();
-      const container = document.getElementById('calendarDays');
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const container = document.getElementById('calendarDaysCal');
       container.innerHTML = '';
-      for (let i=0; i<firstDay; i++) { const empty = document.createElement('div'); empty.classList.add('cal-day','disabled'); empty.style.visibility='hidden'; container.appendChild(empty); }
-      for (let d=1; d<=daysInMonth; d++) {
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.classList.add('cal-day', 'disabled');
+        empty.style.visibility = 'hidden';
+        container.appendChild(empty);
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
         const dateObj = new Date(year, month, d);
-        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
         const dayDiv = document.createElement('div');
         dayDiv.classList.add('cal-day');
         dayDiv.innerText = d;
         if (dateStr < todayStr) dayDiv.classList.add('disabled');
-        if (isSunday(dateObj)) dayDiv.classList.add('sunday-disabled');
-        if (selectedDate === dateStr) dayDiv.classList.add('selected');
-        if (!(dateStr < todayStr) && !isSunday(dateObj)) {
+        if (dateObj.getDay() === 0) dayDiv.classList.add('sunday-disabled');
+        if (calendarSelectedDate === dateStr) dayDiv.classList.add('selected');
+        if (!(dateStr < todayStr) && dateObj.getDay() !== 0) {
           dayDiv.addEventListener('click', () => {
-            document.querySelectorAll('#calendarDays .cal-day').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('#calendarDaysCal .cal-day').forEach(el => el.classList.remove('selected'));
             dayDiv.classList.add('selected');
-            selectedDate = dateStr;
-            updateTimePanel(selectedDate);
+            calendarSelectedDate = dateStr;
+            showTimePanel(dateStr);
           });
         }
         container.appendChild(dayDiv);
       }
-      document.getElementById('monthYearDisplay').innerText = currentDate.toLocaleDateString('en-US', { month:'short', year:'numeric' });
+      document.getElementById('monthYearCal').innerText = currentCalendarDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
     }
-    function updateTimePanel(dateStr) {
-      const panel = document.getElementById('timePanel');
-      const bookedTimes = booked[dateStr] || [];
-      const available = allTimes.filter(t => !bookedTimes.includes(t));
+
+    function hideTimePanel() {
+      document.getElementById('timePanelCal').style.display = 'none';
+      calendarSelectedDate = null;
+      calendarSelectedTime = null;
+      const doneBtn = document.getElementById('doneBookingBtn');
+      doneBtn.classList.remove('active');
+      doneBtn.disabled = true;
+    }
+
+    function showTimePanel(dateStr) {
+      const panel = document.getElementById('timePanelCal');
       document.getElementById('selectedDateLabel').innerHTML = `<i class="far fa-calendar-alt"></i> ${dateStr}`;
-      const slotsDiv = document.getElementById('timeSlots');
-      if (available.length === 0) { slotsDiv.innerHTML = '<span style="color:#ff8888;">Fully booked</span>'; panel.style.display = 'block'; return; }
+      const slotsDiv = document.getElementById('timeSlotsCal');
       slotsDiv.innerHTML = '';
-      available.forEach(slot => {
+      allTimes.forEach(slot => {
         const chip = document.createElement('div');
         chip.classList.add('time-chip');
         chip.innerText = slot;
         chip.addEventListener('click', () => {
-          document.querySelectorAll('#timeSlots .time-chip').forEach(c => c.classList.remove('selected-time'));
+          document.querySelectorAll('#timeSlotsCal .time-chip').forEach(c => c.classList.remove('selected-time'));
           chip.classList.add('selected-time');
-          selectedTime = slot;
-          openModal();
+          calendarSelectedTime = slot;
+          const doneBtn = document.getElementById('doneBookingBtn');
+          doneBtn.classList.add('active');
+          doneBtn.disabled = false;
         });
         slotsDiv.appendChild(chip);
       });
       panel.style.display = 'block';
     }
-    document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth()-1); renderCalendar(); document.getElementById('timePanel').style.display='none'; selectedDate=null; });
-    document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth()+1); renderCalendar(); document.getElementById('timePanel').style.display='none'; selectedDate=null; });
-    renderCalendar();
 
-    // Auto-detect vehicle size
-    const sizeMapping = {
-      'extra small':'Extra Small','small':'Small','sedan':'Small','city':'Small','medium':'Medium','suv':'Medium','crossover':'Medium','mpv':'Medium',
-      'large':'Large','van':'Large','pickup':'Large','extra large':'Extra Large','xl':'Extra Large','xxl':'XXLarge',
-      'motorcycle':'Motorcycle','mc':'Motorcycle','scooter':'Motorcycle','click':'Motorcycle','tricycle':'Tricycle'
-    };
-    const carModelInput = document.getElementById('carModel');
-    const sizeSuggestionDiv = document.getElementById('sizeSuggestion');
-    const vehicleSizeSelect = document.getElementById('vehicleSizeSelect');
-    const allSizes = ['Extra Small','Small','Medium','Large','Extra Large','XXLarge','Motorcycle','Tricycle'];
-    vehicleSizeSelect.innerHTML = allSizes.map(s => `<option value="${s}">${s}</option>`).join('');
-    carModelInput.addEventListener('input', () => {
-      const model = carModelInput.value;
-      const detected = Object.entries(sizeMapping).find(([key]) => model.toLowerCase().includes(key))?.[1];
-      if (detected) {
-        sizeSuggestionDiv.innerHTML = `🔍 Suggested size: <strong>${detected}</strong> (adjust below)`;
-        vehicleSizeSelect.value = detected;
-        vehicleSizeSelect.style.display = 'block';
-      } else if (model.length > 2) {
-        sizeSuggestionDiv.innerHTML = `⚠️ Select vehicle size manually:`;
-        vehicleSizeSelect.style.display = 'block';
-      } else {
-        sizeSuggestionDiv.innerHTML = '';
-        vehicleSizeSelect.style.display = 'none';
+    const doneBtn = document.getElementById('doneBookingBtn');
+    doneBtn.addEventListener('click', () => {
+      if (!calendarSelectedDate || !calendarSelectedTime) {
+        alert('Please select a date and time.');
+        return;
       }
-    });
+      const message = `✅ Booking Summary
+Vehicle: ${currentVehicle.toUpperCase()}
+Package: ${selectedPackage === 'basic' ? 'Basic Wash' : 'Premium Wash'} (₱${selectedPackagePrice})
+Name: ${customerInfo.fullName}
+Phone: ${customerInfo.phone}
+Address: ${customerInfo.address}
+Vehicle: ${customerInfo.year} ${customerInfo.make} ${customerInfo.model}
+Date: ${calendarSelectedDate}
+Time: ${calendarSelectedTime}
+Additional: ${customerInfo.additional || 'None'}
 
-    // Modal handling
-    const modal = document.getElementById('bookingModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const confirmBtn = document.getElementById('confirmBookingBtn');
-    function openModal() { if (!selectedDate || !selectedTime) { alert("Please select a date and time first."); return; } modal.style.display = 'flex'; }
-    closeModalBtn.onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
-    confirmBtn.addEventListener('click', () => {
-      const name = document.getElementById('fullName').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const phone = document.getElementById('phoneNum').value.trim();
-      const carModelVal = document.getElementById('carModel').value.trim();
-      const vehicleSize = vehicleSizeSelect.style.display === 'block' ? vehicleSizeSelect.value : 'Not specified';
-      const concern = document.getElementById('concern').value.trim();
-      if (!name || !address || !phone) { alert("Please fill Name, Address, and Phone."); return; }
-      alert(`✅ Booking confirmed!\n📅 ${selectedDate} at ${selectedTime}\n👤 ${name}\n📍 ${address}\n📞 ${phone}\n🚗 Car: ${carModelVal || '—'} (${vehicleSize})\n💬 Concern: ${concern || '—'}\n\nWe'll call you to confirm.`);
-      modal.style.display = 'none';
-      document.getElementById('fullName').value = '';
-      document.getElementById('address').value = '';
-      document.getElementById('phoneNum').value = '';
-      document.getElementById('carModel').value = '';
-      document.getElementById('concern').value = '';
-      sizeSuggestionDiv.innerHTML = '';
-      vehicleSizeSelect.style.display = 'none';
-      selectedDate = null; selectedTime = null;
-      document.querySelectorAll('#calendarDays .cal-day').forEach(el => el.classList.remove('selected'));
-      document.getElementById('timePanel').style.display = 'none';
-      for(let i=0;i<60;i++) particles.push(new Trail(mx, my));
+Thank you! We will contact you to confirm.`;
+      alert(message);
     });
-    document.getElementById('emergencyCall') && document.getElementById('emergencyCall').addEventListener('click', () => window.location.href = 'tel:09989561989');
   </script>
 </body>
 </html>
