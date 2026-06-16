@@ -1,764 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Mariñas Studio | Premium Carwash & Auto-Detailing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mariñas Studio | Premium Carwash & Auto-Detailing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0B2A3B;
-      color: #ffffff;
-      overflow-x: hidden;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0B2A3B;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-    :root {
-      --marine-dark: #0A2A3A;
-      --marine: #115E7A;
-      --sky: #8ECAE6;
-      --white: #FFFFFF;
-      --light-sky: #CAF0F8;
-      --glass-bg: rgba(17, 94, 122, 0.4);
-      --glass-border: rgba(142, 202, 230, 0.5);
-      --card-bg: rgba(15, 44, 58, 0.9);
-    }
+        :root {
+            --marine-dark: #0A2A3A;
+            --marine: #115E7A;
+            --sky: #8ECAE6;
+            --white: #FFFFFF;
+            --light-sky: #CAF0F8;
+            --glass-bg: rgba(17, 94, 122, 0.4);
+            --glass-border: rgba(142, 202, 230, 0.5);
+            --card-bg: rgba(15, 44, 58, 0.9);
+        }
 
-    /* Fluid particles canvas */
-    #fluid-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
+        /* Fluid particles canvas */
+        #fluid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .content {
-      position: relative;
-      z-index: 10;
-      background: radial-gradient(circle at 10% 20%, rgba(11,42,59,0.85), rgba(3,18,26,0.95));
-      backdrop-filter: blur(2px);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        .content {
+            position: relative;
+            z-index: 10;
+            background: radial-gradient(circle at 10% 20%, rgba(11, 42, 59, 0.85), rgba(3, 18, 26, 0.95));
+            backdrop-filter: blur(2px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* Rotating image at the very top - bigger on mobile */
-    .top-rotating-logo {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      perspective: 1200px;
-    }
-    .top-rotating-logo img {
-      max-width: 280px;
-      width: 80%;
-      height: auto;
-      filter: drop-shadow(0 0 20px rgba(142,202,230,0.5));
-      animation: flipSlow 4s ease-in-out infinite;
-      transform-style: preserve-3d;
-      backface-visibility: visible;
-    }
-    @keyframes flipSlow {
-      0% { transform: rotateY(0deg); }
-      50% { transform: rotateY(180deg); }
-      100% { transform: rotateY(0deg); }
-    }
+        /* Rotating image at the very top - bigger on mobile */
+        .top-rotating-logo {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            perspective: 1200px;
+        }
+        .top-rotating-logo img {
+            max-width: 280px;
+            width: 80%;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(142, 202, 230, 0.5));
+            animation: flipSlow 4s ease-in-out infinite;
+            transform-style: preserve-3d;
+            backface-visibility: visible;
+        }
+        @keyframes flipSlow {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
 
-    /* Banner (text only) */
-    .hero-banner {
-      text-align: center;
-      padding: 0.5rem 2rem 2rem;
-    }
-    .hero-banner h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--white), var(--sky));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-    .hero-banner .subheadline {
-      font-size: 1.4rem;
-      color: var(--light-sky);
-      font-weight: 500;
-    }
+        /* ── Gooey Banner ── */
+        .hero-gooey {
+            text-align: center;
+            padding: 0.5rem 2rem 2rem;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* 3‑column video section */
-    .video-section {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-    .video-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-    }
-    .video-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 1.5rem;
-      padding: 1rem;
-      width: 300px;
-      text-align: center;
-      border: 1px solid var(--glass-border);
-    }
-    .video-card h3 {
-      color: var(--sky);
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-    }
-    .video-card video {
-      width: 100%;
-      border-radius: 0.8rem;
-      outline: none;
-    }
+        .gooey-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 120px;
+        }
 
-    /* Booking flow */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    .booking-trigger {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    .book-now-btn {
-      background: linear-gradient(90deg, var(--marine), var(--sky));
-      border: none;
-      padding: 1rem 3rem;
-      border-radius: 60px;
-      font-weight: bold;
-      color: #0A2A3A;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: transform 0.2s;
-      box-shadow: 0 0 15px rgba(142,202,230,0.3);
-    }
-    .book-now-btn:hover {
-      transform: scale(1.05);
-    }
-    .vehicle-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin: 2rem 0;
-    }
-    .vehicle-option {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 2rem;
-      padding: 0.7rem 1.5rem;
-      cursor: pointer;
-      transition: 0.2s;
-      font-weight: 500;
-    }
-    .vehicle-option.selected {
-      background: var(--sky);
-      color: #0A2A3A;
-    }
-    .package-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      margin: 2rem 0;
-    }
-    .package-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      width: 280px;
-      text-align: center;
-      border: 1px solid var(--glass-border);
-    }
-    .package-card h3 {
-      font-size: 1.8rem;
-      color: var(--sky);
-    }
-    .package-price {
-      font-size: 2rem;
-      font-weight: 800;
-      margin: 0.5rem 0;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--sky);
-      padding: 0.4rem 1rem;
-      border-radius: 40px;
-      cursor: pointer;
-      margin: 0.5rem;
-      color: var(--sky);
-    }
-    .btn-select {
-      background: linear-gradient(90deg, var(--marine), var(--sky));
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 40px;
-      font-weight: bold;
-      color: #0A2A3A;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 0.5rem;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.95);
-      backdrop-filter: blur(12px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background: #0F2C3A;
-      border: 1px solid var(--sky);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      width: 90%;
-      max-width: 500px;
-      max-height: 85vh;
-      overflow-y: auto;
-    }
-    .modal-content input, .modal-content textarea {
-      width: 100%;
-      padding: 0.7rem;
-      margin: 0.5rem 0;
-      background: rgba(0,0,0,0.6);
-      border: 1px solid var(--glass-border);
-      border-radius: 0.8rem;
-      color: white;
-    }
-    .feature-list {
-      list-style: disc;
-      padding-left: 1.5rem;
-      margin: 1rem 0;
-    }
-    .hidden {
-      display: none;
-    }
-    .calendar-half {
-      max-width: 480px;
-      width: 100%;
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border-radius: 1.8rem;
-      padding: 1.2rem;
-      border: 1px solid var(--glass-border);
-      margin: 1rem auto;
-    }
-    .cal-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-    .cal-nav {
-      background: rgba(142,202,230,0.2);
-      border: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      color: var(--sky);
-      cursor: pointer;
-    }
-    .month-year {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--sky);
-    }
-    .weekdays {
-      display: grid;
-      grid-template-columns: repeat(7,1fr);
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--sky);
-      margin-bottom: 0.5rem;
-    }
-    .calendar-days {
-      display: grid;
-      grid-template-columns: repeat(7,1fr);
-      gap: 0.3rem;
-    }
-    .cal-day {
-      aspect-ratio: 1/1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(17,94,122,0.5);
-      border-radius: 0.6rem;
-      font-size: 0.75rem;
-      cursor: pointer;
-      border: 1px solid rgba(142,202,230,0.3);
-    }
-    .cal-day.selected {
-      background: var(--sky);
-      color: #0A2A3A;
-      box-shadow: 0 0 8px var(--sky);
-    }
-    .cal-day.disabled, .cal-day.sunday-disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-    .time-panel {
-      margin-top: 1rem;
-      background: rgba(0,0,0,0.5);
-      border-radius: 1rem;
-      padding: 0.8rem;
-    }
-    .time-slots {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .time-chip {
-      background: rgba(142,202,230,0.2);
-      border: 1px solid var(--sky);
-      border-radius: 40px;
-      padding: 0.3rem 0.9rem;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
-    .time-chip.selected-time {
-      background: var(--sky);
-      color: #0A2A3A;
-    }
-    .done-btn {
-      background: #555;
-      border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      font-weight: bold;
-      color: #aaa;
-      cursor: not-allowed;
-      margin-top: 1rem;
-      transition: 0.2s;
-      width: 100%;
-    }
-    .done-btn.active {
-      background: linear-gradient(90deg, var(--marine), var(--sky));
-      color: #0A2A3A;
-      cursor: pointer;
-    }
-    .info-panel {
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(12px);
-      border-radius: 1.8rem;
-      padding: 1.2rem;
-      border: 1px solid var(--sky);
-      max-width: 500px;
-      margin: 2rem auto;
-    }
-    .row-information {
-      display: flex;
-      gap: 0.8rem;
-      margin-bottom: 0.8rem;
-      align-items: center;
-    }
-    .col-icon {
-      width: 28px;
-      text-align: center;
-    }
-    .col-icon i, .col-icon a i {
-      font-size: 1.2rem;
-      color: var(--sky);
-    }
-    .col-information {
-      flex: 1;
-    }
-    .strong {
-      font-weight: 600;
-      color: var(--sky);
-    }
-    .social-link {
-      color: var(--sky);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .social-link:hover {
-      color: white;
-      text-shadow: 0 0 6px var(--sky);
-    }
-    @media (max-width: 760px) {
-      .top-rotating-logo img {
-        max-width: 85%;
-        width: auto;
-      }
-      .hero-banner {
-        padding: 0.5rem 1rem 1.5rem;
-      }
-      .hero-banner h1 {
-        font-size: 2rem;
-      }
-      .hero-banner .subheadline {
-        font-size: 1.2rem;
-      }
-      .video-card {
-        width: 100%;
-        max-width: 320px;
-      }
-    }
-  </style>
+        .gooey-text {
+            position: absolute;
+            display: inline-block;
+            text-align: center;
+            user-select: none;
+            font-weight: 800;
+            font-size: 3rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, #8ECAE6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            transition: none;
+            width: 100%;
+            padding: 0 0.5rem;
+        }
+
+        .hero-tagline {
+            margin-top: 2.4rem;
+            font-size: 1.4rem;
+            color: var(--light-sky);
+            font-weight: 500;
+            opacity: 0.9;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 760px) {
+            .top-rotating-logo img {
+                max-width: 85%;
+                width: auto;
+            }
+            .hero-gooey {
+                padding: 0.5rem 1rem 1.5rem;
+                min-height: 140px;
+            }
+            .gooey-text {
+                font-size: 2rem;
+            }
+            .hero-tagline {
+                font-size: 1.2rem;
+                margin-top: 2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .gooey-text {
+                font-size: 1.6rem;
+            }
+            .hero-tagline {
+                font-size: 1rem;
+                margin-top: 1.6rem;
+            }
+        }
+
+        /* ── video section ── */
+        .video-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .video-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            width: 300px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+        .video-card h3 {
+            color: var(--sky);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        .video-card video {
+            width: 100%;
+            border-radius: 0.8rem;
+            outline: none;
+        }
+
+        /* ── booking flow ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .booking-trigger {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .book-now-btn {
+            background: linear-gradient(90deg, var(--marine), var(--sky));
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            font-weight: bold;
+            color: #0A2A3A;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            box-shadow: 0 0 15px rgba(142, 202, 230, 0.3);
+        }
+        .book-now-btn:hover {
+            transform: scale(1.05);
+        }
+        .vehicle-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .vehicle-option {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        .vehicle-option.selected {
+            background: var(--sky);
+            color: #0A2A3A;
+        }
+        .package-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .package-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            width: 280px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+        .package-card h3 {
+            font-size: 1.8rem;
+            color: var(--sky);
+        }
+        .package-price {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--sky);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            margin: 0.5rem;
+            color: var(--sky);
+        }
+        .btn-select {
+            background: linear-gradient(90deg, var(--marine), var(--sky));
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #0A2A3A;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #0F2C3A;
+            border: 1px solid var(--sky);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 0.7rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.8rem;
+            color: white;
+        }
+        .feature-list {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .calendar-half {
+            max-width: 480px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 1.8rem;
+            padding: 1.2rem;
+            border: 1px solid var(--glass-border);
+            margin: 1rem auto;
+        }
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .cal-nav {
+            background: rgba(142, 202, 230, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: var(--sky);
+            cursor: pointer;
+        }
+        .month-year {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--sky);
+        }
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--sky);
+            margin-bottom: 0.5rem;
+        }
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.3rem;
+        }
+        .cal-day {
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(17, 94, 122, 0.5);
+            border-radius: 0.6rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border: 1px solid rgba(142, 202, 230, 0.3);
+        }
+        .cal-day.selected {
+            background: var(--sky);
+            color: #0A2A3A;
+            box-shadow: 0 0 8px var(--sky);
+        }
+        .cal-day.disabled,
+        .cal-day.sunday-disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .time-panel {
+            margin-top: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            padding: 0.8rem;
+        }
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .time-chip {
+            background: rgba(142, 202, 230, 0.2);
+            border: 1px solid var(--sky);
+            border-radius: 40px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .time-chip.selected-time {
+            background: var(--sky);
+            color: #0A2A3A;
+        }
+        .done-btn {
+            background: #555;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: not-allowed;
+            margin-top: 1rem;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .done-btn.active {
+            background: linear-gradient(90deg, var(--marine), var(--sky));
+            color: #0A2A3A;
+            cursor: pointer;
+        }
+        .info-panel {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 1.8rem;
+            padding: 1.2rem;
+            border: 1px solid var(--sky);
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        .row-information {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            align-items: center;
+        }
+        .col-icon {
+            width: 28px;
+            text-align: center;
+        }
+        .col-icon i,
+        .col-icon a i {
+            font-size: 1.2rem;
+            color: var(--sky);
+        }
+        .col-information {
+            flex: 1;
+        }
+        .strong {
+            font-weight: 600;
+            color: var(--sky);
+        }
+        .social-link {
+            color: var(--sky);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .social-link:hover {
+            color: white;
+            text-shadow: 0 0 6px var(--sky);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-top: 1px solid rgba(142, 202, 230, 0.2);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 760px) {
+            .video-card {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <canvas id="fluid-canvas"></canvas>
-  <div class="content">
-    <!-- Rotating image at the very top -->
-    <div class="top-rotating-logo">
-      <img src="Untitled design.png" alt="Mariñas Studio" onerror="this.src='https://placehold.co/400x400?text=MARI%C3%91AS'">
-    </div>
+    <canvas id="fluid-canvas"></canvas>
+    <div class="content">
 
-    <!-- Banner text only -->
-    <div class="hero-banner">
-      <h1>Premium Car Wash & Detailing</h1>
-      <div class="subheadline">Give Your Car The Shine It Deserves</div>
-    </div>
-
-    <!-- Video Section -->
-    <div class="video-section">
-      <div class="video-grid">
-        <div class="video-card"><h3>PMS</h3><video controls preload="metadata"><source src="PMS.mp4" type="video/mp4"></video></div>
-        <div class="video-card"><h3>Engine Bay Cleaning</h3><video controls preload="metadata"><source src="EngineBayCleaning.mp4" type="video/mp4"></video></div>
-        <div class="video-card"><h3>Alternator Replacement</h3><video controls preload="metadata"><source src="AlternatorReplacement.mp4" type="video/mp4"></video></div>
-      </div>
-    </div>
-
-    <!-- Booking flow -->
-    <div class="main-content">
-      <div class="booking-trigger" id="bookingTrigger">
-        <button class="book-now-btn" id="initialBookNowBtn">📅 Book Now</button>
-      </div>
-      <div id="bookingSteps" class="hidden" style="width:100%;">
-        <div id="vehicleStep">
-          <h3 class="text-center" style="color:var(--sky);">Select your vehicle type:</h3>
-          <div class="vehicle-row" id="vehicleOptions">
-            <div class="vehicle-option" data-vehicle="car">Car</div>
-            <div class="vehicle-option" data-vehicle="suv">SUVs and Crossovers</div>
-            <div class="vehicle-option" data-vehicle="pickup">Pickup</div>
-            <div class="vehicle-option" data-vehicle="vans">Vans</div>
-            <div class="vehicle-option" data-vehicle="other">Other</div>
-          </div>
+        <!-- Rotating image -->
+        <div class="top-rotating-logo">
+            <img src="Untitled design.png" alt="Mariñas Studio" onerror="this.src='https://placehold.co/400x400?text=MARI%C3%91AS'">
         </div>
-        <div id="packageStep" class="hidden">
-          <h3 class="text-center" style="color:var(--sky);">Choose cleaning package:</h3>
-          <div class="package-container" id="packageContainer"></div>
+
+        <!-- ════════════════════════════════════════ -->
+        <!--  GOOEY BANNER (SLOW DISPLAY, SAME WARP) -->
+        <!-- ════════════════════════════════════════ -->
+        <div class="hero-gooey">
+            <svg class="absolute h-0 w-0" aria-hidden="true" focusable="false" style="position:absolute;left:-9999px;">
+                <defs>
+                    <filter id="gooeyThreshold">
+                        <feColorMatrix
+                        in="SourceGraphic"
+                        type="matrix"
+                        values="1 0 0 0 0
+                                0 1 0 0 0
+                                0 0 1 0 0
+                                0 0 0 255 -140"
+                        />
+                    </filter>
+                </defs>
+            </svg>
+
+            <div class="gooey-wrapper" style="filter: url(#gooeyThreshold)">
+                <span id="gooeyText1" class="gooey-text" style="opacity:0%;">Premium Car Wash &amp; Detailing</span>
+                <span id="gooeyText2" class="gooey-text" style="opacity:100%;">Give Your Car The Shine It Deserves</span>
+            </div>
+
+            <div class="hero-tagline">Professional Hand Wash · Ceramic Coating · Interior Detailing</div>
         </div>
-      </div>
-      <div id="calendarSection" class="calendar-half hidden">
-        <div class="cal-header">
-          <button class="cal-nav" id="prevMonthCal"><i class="fas fa-chevron-left"></i></button>
-          <div class="month-year" id="monthYearCal"></div>
-          <button class="cal-nav" id="nextMonthCal"><i class="fas fa-chevron-right"></i></button>
+
+        <!-- Video Section -->
+        <div class="video-section">
+            <div class="video-grid">
+                <div class="video-card"><h3>PMS</h3><video controls preload="metadata"><source src="PMS.mp4" type="video/mp4"></video></div>
+                <div class="video-card"><h3>Engine Bay Cleaning</h3><video controls preload="metadata"><source src="EngineBayCleaning.mp4" type="video/mp4"></video></div>
+                <div class="video-card"><h3>Alternator Replacement</h3><video controls preload="metadata"><source src="AlternatorReplacement.mp4" type="video/mp4"></video></div>
+            </div>
         </div>
-        <div class="weekdays"><div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div></div>
-        <div class="calendar-days" id="calendarDaysCal"></div>
-        <div id="timePanelCal" class="time-panel" style="display: none;">
-          <div><i class="far fa-clock"></i> <span id="selectedDateLabel"></span></div>
-          <div id="timeSlotsCal" class="time-slots"></div>
+
+        <!-- Booking flow -->
+        <div class="main-content">
+            <div class="booking-trigger" id="bookingTrigger">
+                <button class="book-now-btn" id="initialBookNowBtn">📅 Book Now</button>
+            </div>
+            <div id="bookingSteps" class="hidden" style="width:100%;">
+                <div id="vehicleStep">
+                    <h3 class="text-center" style="color:var(--sky);">Select your vehicle type:</h3>
+                    <div class="vehicle-row" id="vehicleOptions">
+                        <div class="vehicle-option" data-vehicle="car">Car</div>
+                        <div class="vehicle-option" data-vehicle="suv">SUVs and Crossovers</div>
+                        <div class="vehicle-option" data-vehicle="pickup">Pickup</div>
+                        <div class="vehicle-option" data-vehicle="vans">Vans</div>
+                        <div class="vehicle-option" data-vehicle="other">Other</div>
+                    </div>
+                </div>
+                <div id="packageStep" class="hidden">
+                    <h3 class="text-center" style="color:var(--sky);">Choose cleaning package:</h3>
+                    <div class="package-container" id="packageContainer"></div>
+                </div>
+            </div>
+            <div id="calendarSection" class="calendar-half hidden">
+                <div class="cal-header">
+                    <button class="cal-nav" id="prevMonthCal"><i class="fas fa-chevron-left"></i></button>
+                    <div class="month-year" id="monthYearCal"></div>
+                    <button class="cal-nav" id="nextMonthCal"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="weekdays"><div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div></div>
+                <div class="calendar-days" id="calendarDaysCal"></div>
+                <div id="timePanelCal" class="time-panel" style="display: none;">
+                    <div><i class="far fa-clock"></i> <span id="selectedDateLabel"></span></div>
+                    <div id="timeSlotsCal" class="time-slots"></div>
+                </div>
+                <button id="doneBookingBtn" class="done-btn">Done</button>
+            </div>
         </div>
-        <button id="doneBookingBtn" class="done-btn">Done</button>
-      </div>
+
+        <!-- Contact panel -->
+        <div id="contact" class="info-panel">
+            <h3 class="text-center" style="color:var(--sky);"><i class="fas fa-ship"></i> Contact &amp; Hours</h3>
+            <div class="row-information">
+                <div class="col-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="col-information"><span class="strong">Address:</span> Coming soon – we will update</div>
+            </div>
+            <div class="row-information">
+                <div class="col-icon"><i class="fas fa-clock"></i></div>
+                <div class="col-information"><span class="strong">Hours:</span> Mon–Sat 8am–5pm, Sun Closed</div>
+            </div>
+            <div class="row-information">
+                <div class="col-icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="col-information"><span class="strong">Phone:</span> <a href="tel:09989561989" class="social-link">0998-956-1989</a></div>
+            </div>
+            <div class="row-information">
+                <div class="col-icon"><i class="fab fa-facebook"></i></div>
+                <div class="col-information"><span class="strong">Facebook:</span> <a href="https://www.facebook.com/profile.php?id=61576227909034" target="_blank" rel="noopener noreferrer" class="social-link">Mariñas Studio on Facebook</a></div>
+            </div>
+            <div class="row-information">
+                <div class="col-icon"><i class="fas fa-envelope"></i></div>
+                <div class="col-information"><span class="strong">Email:</span> <a href="mailto:marinas.studio@outlook.com" class="social-link">marinas.studio@outlook.com</a></div>
+            </div>
+        </div>
+
+        <footer>© 2025 Mariñas Studio — Precision Auto Care</footer>
     </div>
 
-    <!-- Contact panel with Facebook icon linking to page -->
-    <div id="contact" class="info-panel">
-      <h3 class="text-center" style="color:var(--sky);"><i class="fas fa-ship"></i> Contact & Hours</h3>
-      <div class="row-information">
-        <div class="col-icon"><i class="fas fa-map-marker-alt"></i></div>
-        <div class="col-information"><span class="strong">Address:</span> Coming soon – we will update</div>
-      </div>
-      <div class="row-information">
-        <div class="col-icon"><i class="fas fa-clock"></i></div>
-        <div class="col-information"><span class="strong">Hours:</span> Mon–Sat 8am–5pm, Sun Closed</div>
-      </div>
-      <div class="row-information">
-        <div class="col-icon"><i class="fas fa-phone-alt"></i></div>
-        <div class="col-information"><span class="strong">Phone:</span> <a href="tel:09989561989" class="social-link">0998-956-1989</a></div>
-      </div>
-      <div class="row-information">
-        <div class="col-icon"><i class="fab fa-facebook"></i></div>
-        <div class="col-information"><span class="strong">Facebook:</span> <a href="https://www.facebook.com/profile.php?id=61576227909034" target="_blank" rel="noopener noreferrer" class="social-link">Mariñas Studio on Facebook</a></div>
-      </div>
-      <div class="row-information">
-        <div class="col-icon"><i class="fas fa-envelope"></i></div>
-        <div class="col-information"><span class="strong">Email:</span> <a href="mailto:marinas.studio@outlook.com" class="social-link">marinas.studio@outlook.com</a></div>
-      </div>
+    <div id="globalModal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+
+    <!-- Facebook Messenger -->
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() { FB.init({ xfbml: true, version: 'v18.0' }); };
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            js.async = true;
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="fb-customerchat" page_id="61576227909034" theme_color="#115E7A" logged_in_greeting="Hi! How can we help with your car?" logged_out_greeting="Hi! How can we help with your car?">
     </div>
 
-    <footer class="text-center py-4 border-t border-sky-800/30">© 2025 Mariñas Studio — Precision Auto Care</footer>
-  </div>
+    <script>
+        // ──────────────────────────────────────────────────────────────
+        //  FLUID PARTICLES
+        // ──────────────────────────────────────────────────────────────
+        const fluidCanvas = document.getElementById('fluid-canvas');
+        const ctx = fluidCanvas.getContext('2d');
+        let ww = window.innerWidth,
+            wh = window.innerHeight;
+        let particles = [];
 
-  <div id="globalModal" class="modal"><div class="modal-content" id="modalContent"></div></div>
-
-  <!-- Facebook Messenger (separate chat widget) -->
-  <div id="fb-root"></div>
-  <script>
-    window.fbAsyncInit = function() { FB.init({ xfbml: true, version: 'v18.0' }); };
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-      js.async = true;
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-  <div class="fb-customerchat" page_id="61576227909034" theme_color="#115E7A" logged_in_greeting="Hi! How can we help with your car?" logged_out_greeting="Hi! How can we help with your car?"></div>
-
-  <script>
-    // Fluid particles (unchanged)
-    const fluidCanvas = document.getElementById('fluid-canvas');
-    const ctx = fluidCanvas.getContext('2d');
-    let ww = window.innerWidth, wh = window.innerHeight;
-    let particles = [];
-    function resizeFluid() { ww = window.innerWidth; wh = window.innerHeight; fluidCanvas.width = ww; fluidCanvas.height = wh; }
-    window.addEventListener('resize', resizeFluid);
-    resizeFluid();
-    class Trail { constructor(x,y) { this.x=x; this.y=y; this.vx=(Math.random()-0.5)*0.8; this.vy=(Math.random()-1)*0.7-0.3; this.size=1.5+Math.random()*2.5; this.life=1; this.decay=0.018; } update() { this.x+=this.vx; this.y+=this.vy; this.life-=this.decay; return this.life>0; } draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.size*this.life,0,Math.PI*2); ctx.fillStyle=`rgba(142,202,230,${this.life*0.7})`; ctx.fill(); } }
-    let mx=ww/2, my=wh/2;
-    window.addEventListener('mousemove', (e) => { mx=e.clientX; my=e.clientY; for(let i=0;i<2;i++) particles.push(new Trail(mx+(Math.random()-0.5)*12, my+(Math.random()-0.5)*12)); });
-    function animateFluid() { ctx.clearRect(0,0,ww,wh); ctx.globalCompositeOperation='lighter'; for(let i=0;i<particles.length;i++) { if(!particles[i].update()) { particles.splice(i,1); i--; } else particles[i].draw(); } if(particles.length<120) particles.push(new Trail(Math.random()*ww, Math.random()*wh)); requestAnimationFrame(animateFluid); }
-    animateFluid();
-
-    // ---------- Booking flow (same as before, omitted for brevity but fully functional) ----------
-    let currentVehicle = null;
-    let selectedPackage = null;
-    let selectedPackagePrice = 0;
-    let customerInfo = {};
-
-    const priceMap = {
-      car: { basic: 140, premium: 220 },
-      suv: { basic: 200, premium: 280 },
-      pickup: { basic: 250, premium: 320 },
-      vans: { basic: 300, premium: 380 },
-      other: { basic: 350, premium: 430 }
-    };
-
-    const initialBtn = document.getElementById('initialBookNowBtn');
-    const bookingStepsDiv = document.getElementById('bookingSteps');
-    const vehicleStepDiv = document.getElementById('vehicleStep');
-    const packageStepDiv = document.getElementById('packageStep');
-    const packageContainer = document.getElementById('packageContainer');
-    const calendarSection = document.getElementById('calendarSection');
-    const modal = document.getElementById('globalModal');
-    const modalContent = document.getElementById('modalContent');
-
-    initialBtn.addEventListener('click', () => {
-      initialBtn.parentElement.classList.add('hidden');
-      bookingStepsDiv.classList.remove('hidden');
-      vehicleStepDiv.classList.remove('hidden');
-      packageStepDiv.classList.add('hidden');
-      calendarSection.classList.add('hidden');
-      currentVehicle = null;
-    });
-
-    document.querySelectorAll('.vehicle-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        document.querySelectorAll('.vehicle-option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        currentVehicle = opt.getAttribute('data-vehicle');
-        vehicleStepDiv.classList.add('hidden');
-        packageStepDiv.classList.remove('hidden');
-        renderPackages();
-      });
-    });
-
-    function renderPackages() {
-      const prices = priceMap[currentVehicle];
-      if (!prices) return;
-      packageContainer.innerHTML = `
-        <div class="package-card"><h3>Basic Wash</h3><div class="package-price">₱${prices.basic}</div><button class="btn-outline" data-package="basic" data-action="details">Details</button><button class="btn-select" data-package="basic" data-action="select">Select Package</button></div>
-        <div class="package-card"><h3>Premium Wash</h3><div class="package-price">₱${prices.premium}</div><button class="btn-outline" data-package="premium" data-action="details">Details</button><button class="btn-select" data-package="premium" data-action="select">Select Package</button></div>
-      `;
-      document.querySelectorAll('.btn-outline').forEach(btn => {
-        btn.addEventListener('click', () => showPackageDetails(btn.getAttribute('data-package')));
-      });
-      document.querySelectorAll('.btn-select').forEach(btn => {
-        btn.addEventListener('click', () => {
-          selectedPackage = btn.getAttribute('data-package');
-          selectedPackagePrice = priceMap[currentVehicle][selectedPackage];
-          showCustomerInfoModal();
-        });
-      });
-    }
-
-    function showPackageDetails(pkg) {
-      const isPremium = pkg === 'premium';
-      const features = isPremium ? 
-        ['Light Asphalt Removal', 'Glass Cleaning', 'Interior Vacuum', 'Exterior Wash', 'Back To Black', 'Wax', 'Leather Protectant'] :
-        ['Interior Vacuum', 'Exterior Wash'];
-      let html = `<h3 style="color:var(--sky);">${pkg === 'basic' ? 'Basic Wash' : 'Premium Wash'} - Included:</h3><ul class="feature-list">`;
-      features.forEach(f => html += `<li>${f}</li>`);
-      html += `</ul><button class="btn-select" id="closeDetailsModal">Close</button>`;
-      modalContent.innerHTML = html;
-      modal.style.display = 'flex';
-      document.getElementById('closeDetailsModal').addEventListener('click', () => modal.style.display = 'none');
-    }
-
-    function showCustomerInfoModal() {
-      let html = `
-        <h3 style="color:var(--sky);">Your Information</h3>
-        <label>Full Name *</label><input type="text" id="modalFullName">
-        <label>Phone Number *</label><input type="tel" id="modalPhone">
-        <label>Service Address *</label><input type="text" id="modalAddress">
-        <label>Vehicle Year *</label><input type="text" id="modalYear">
-        <label>Vehicle Make *</label><input type="text" id="modalMake">
-        <label>Vehicle Model *</label><input type="text" id="modalModel">
-        <label>Additional Information</label><textarea id="modalAdditional" rows="2"></textarea>
-        <button id="nextBtnModal" class="btn-select" style="margin-top:1rem;">Next</button>
-      `;
-      modalContent.innerHTML = html;
-      modal.style.display = 'flex';
-      document.getElementById('nextBtnModal').addEventListener('click', () => {
-        const fullName = document.getElementById('modalFullName').value.trim();
-        const phone = document.getElementById('modalPhone').value.trim();
-        const address = document.getElementById('modalAddress').value.trim();
-        const year = document.getElementById('modalYear').value.trim();
-        const make = document.getElementById('modalMake').value.trim();
-        const model = document.getElementById('modalModel').value.trim();
-        const additional = document.getElementById('modalAdditional').value;
-        if (!fullName || !phone || !address || !year || !make || !model) {
-          alert('Please fill all required fields.');
-          return;
+        function resizeFluid() {
+            ww = window.innerWidth;
+            wh = window.innerHeight;
+            fluidCanvas.width = ww;
+            fluidCanvas.height = wh;
         }
-        customerInfo = { fullName, phone, address, year, make, model, additional };
-        modal.style.display = 'none';
-        packageStepDiv.classList.add('hidden');
-        calendarSection.classList.remove('hidden');
-        initCalendar();
-      });
-    }
+        window.addEventListener('resize', resizeFluid);
+        resizeFluid();
 
-    // Calendar logic (original half‑size)
-    let currentCalendarDate = new Date();
-    let calendarSelectedDate = null;
-    let calendarSelectedTime = null;
-    const allTimes = ["8:00 AM","9:00 AM","10:00 AM","11:00 AM","1:00 PM","2:00 PM","3:00 PM","4:00 PM"];
-    const todayStr = new Date().toISOString().split('T')[0];
-
-    function initCalendar() {
-      renderCalendar();
-      document.getElementById('prevMonthCal').addEventListener('click', () => {
-        currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
-        renderCalendar();
-        hideTimePanel();
-      });
-      document.getElementById('nextMonthCal').addEventListener('click', () => {
-        currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
-        renderCalendar();
-        hideTimePanel();
-      });
-    }
-
-    function renderCalendar() {
-      const year = currentCalendarDate.getFullYear();
-      const month = currentCalendarDate.getMonth();
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const container = document.getElementById('calendarDaysCal');
-      container.innerHTML = '';
-      for (let i = 0; i < firstDay; i++) {
-        const empty = document.createElement('div');
-        empty.classList.add('cal-day', 'disabled');
-        empty.style.visibility = 'hidden';
-        container.appendChild(empty);
-      }
-      for (let d = 1; d <= daysInMonth; d++) {
-        const dateObj = new Date(year, month, d);
-        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        const dayDiv = document.createElement('div');
-        dayDiv.classList.add('cal-day');
-        dayDiv.innerText = d;
-        if (dateStr < todayStr) dayDiv.classList.add('disabled');
-        if (dateObj.getDay() === 0) dayDiv.classList.add('sunday-disabled');
-        if (calendarSelectedDate === dateStr) dayDiv.classList.add('selected');
-        if (!(dateStr < todayStr) && dateObj.getDay() !== 0) {
-          dayDiv.addEventListener('click', () => {
-            document.querySelectorAll('#calendarDaysCal .cal-day').forEach(el => el.classList.remove('selected'));
-            dayDiv.classList.add('selected');
-            calendarSelectedDate = dateStr;
-            showTimePanel(dateStr);
-          });
+        class Trail {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 1) * 0.7 - 0.3;
+                this.size = 1.5 + Math.random() * 2.5;
+                this.life = 1;
+                this.decay = 0.018;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                return this.life > 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * this.life, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(142,202,230,${this.life * 0.7})`;
+                ctx.fill();
+            }
         }
-        container.appendChild(dayDiv);
-      }
-      document.getElementById('monthYearCal').innerText = currentCalendarDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-    }
 
-    function hideTimePanel() {
-      document.getElementById('timePanelCal').style.display = 'none';
-      calendarSelectedDate = null;
-      calendarSelectedTime = null;
-      const doneBtn = document.getElementById('doneBookingBtn');
-      doneBtn.classList.remove('active');
-      doneBtn.disabled = true;
-    }
-
-    function showTimePanel(dateStr) {
-      const panel = document.getElementById('timePanelCal');
-      document.getElementById('selectedDateLabel').innerHTML = `<i class="far fa-calendar-alt"></i> ${dateStr}`;
-      const slotsDiv = document.getElementById('timeSlotsCal');
-      slotsDiv.innerHTML = '';
-      allTimes.forEach(slot => {
-        const chip = document.createElement('div');
-        chip.classList.add('time-chip');
-        chip.innerText = slot;
-        chip.addEventListener('click', () => {
-          document.querySelectorAll('#timeSlotsCal .time-chip').forEach(c => c.classList.remove('selected-time'));
-          chip.classList.add('selected-time');
-          calendarSelectedTime = slot;
-          const doneBtn = document.getElementById('doneBookingBtn');
-          doneBtn.classList.add('active');
-          doneBtn.disabled = false;
+        let mx = ww / 2,
+            my = wh / 2;
+        window.addEventListener('mousemove', (e) => {
+            mx = e.clientX;
+            my = e.clientY;
+            for (let i = 0; i < 2; i++) particles.push(new Trail(mx + (Math.random() - 0.5) * 12, my + (Math.random() - 0.5) *
+                12));
         });
-        slotsDiv.appendChild(chip);
-      });
-      panel.style.display = 'block';
-    }
 
-    const doneBtn = document.getElementById('doneBookingBtn');
-    doneBtn.addEventListener('click', () => {
-      if (!calendarSelectedDate || !calendarSelectedTime) {
-        alert('Please select a date and time.');
-        return;
-      }
-      const message = `✅ Booking Summary
-Vehicle: ${currentVehicle.toUpperCase()}
-Package: ${selectedPackage === 'basic' ? 'Basic Wash' : 'Premium Wash'} (₱${selectedPackagePrice})
-Name: ${customerInfo.fullName}
-Phone: ${customerInfo.phone}
-Address: ${customerInfo.address}
-Vehicle: ${customerInfo.year} ${customerInfo.make} ${customerInfo.model}
-Date: ${calendarSelectedDate}
-Time: ${calendarSelectedTime}
-Additional: ${customerInfo.additional || 'None'}
+        function animateFluid() {
+            ctx.clearRect(0, 0, ww, wh);
+            ctx.globalCompositeOperation = 'lighter';
+            for (let i = 0; i < particles.length; i++) {
+                if (!particles[i].update()) { particles.splice(i, 1);
+                    i--; } else particles[i].draw();
+            }
+            if (particles.length < 120) particles.push(new Trail(Math.random() * ww, Math.random() * wh));
+            requestAnimationFrame(animateFluid);
+        }
+        animateFluid();
 
-Thank you! We will contact you to confirm.`;
-      alert(message);
-    });
-  </script>
+        // ──────────────────────────────────────────────────────────────
+        //  GOOEY TEXT MORPH  (text stays longer, warp speed unchanged)
+        // ──────────────────────────────────────────────────────────────
+        (function() {
+            'use strict';
+
+            const texts = [
+                'Premium Car Wash & Detailing',
+                'Give Your Car The Shine It Deserves'
+            ];
+
+            // ── Warp speed stays the same (2.8s) ──
+            // ── Display pause is now longer (2.0s up from 0.9s) ──
+            const morphTime = 2.8; // warping speed (unchanged)
+            const cooldownTime = 2.0; // text stays visible longer
+
+            const text1El = document.getElementById('gooeyText1');
+            const text2El = document.getElementById('gooeyText2');
+
+            if (!text1El || !text2El) return;
+
+            text1El.textContent = texts[0];
+            text2El.textContent = texts[1];
+
+            let textIndex = texts.length - 1;
+            let time = new Date();
+            let morph = 0;
+            let cooldown = cooldownTime;
+
+            function setMorph(fraction) {
+                const blur2 = Math.min(8 / fraction - 8, 100);
+                const opacity2 = Math.pow(fraction, 0.4) * 100;
+
+                const f2 = 1 - fraction;
+                const blur1 = Math.min(8 / f2 - 8, 100);
+                const opacity1 = Math.pow(f2, 0.4) * 100;
+
+                text2El.style.filter = `blur(${blur2}px)`;
+                text2El.style.opacity = `${opacity2}%`;
+
+                text1El.style.filter = `blur(${blur1}px)`;
+                text1El.style.opacity = `${opacity1}%`;
+            }
+
+            function doCooldown() {
+                morph = 0;
+                text2El.style.filter = '';
+                text2El.style.opacity = '100%';
+                text1El.style.filter = '';
+                text1El.style.opacity = '0%';
+            }
+
+            function doMorph() {
+                morph -= cooldown;
+                cooldown = 0;
+                let fraction = morph / morphTime;
+
+                if (fraction > 1) {
+                    cooldown = cooldownTime;
+                    fraction = 1;
+                }
+
+                setMorph(fraction);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const newTime = new Date();
+                const shouldIncrementIndex = cooldown > 0;
+                const dt = (newTime.getTime() - time.getTime()) / 1000;
+                time = newTime;
+
+                cooldown -= dt;
+
+                if (cooldown <= 0) {
+                    if (shouldIncrementIndex) {
+                        textIndex = (textIndex + 1) % texts.length;
+                        text1El.textContent = texts[textIndex % texts.length];
+                        text2El.textContent = texts[(textIndex + 1) % texts.length];
+                    }
+                    doMorph();
+                } else {
+                    doCooldown();
+                }
+            }
+
+            animate();
+        })();
+
+        // ──────────────────────────────────────────────────────────────
+        //  BOOKING FLOW
+        // ──────────────────────────────────────────────────────────────
+        let currentVehicle = null;
+        let selectedPackage = null;
+        let selectedPackagePrice = 0;
+        let customerInfo = {};
+
+        const priceMap = {
+            car: { basic: 140, premium: 220 },
+            suv: { basic: 200, premium: 280 },
+            pickup: { basic: 250, premium: 320 },
+            vans: { basic: 300, premium: 380 },
+            other: { basic: 350, premium: 430 }
+        };
+
+        const initialBtn = document.getElementById('initialBookNowBtn');
+        const bookingStepsDiv = document.getElementById('bookingSteps');
+        const vehicleStepDiv = document.getElementById('vehicleStep');
+        const packageStepDiv = document.getElementById('packageStep');
+        const packageContainer = document.getElementById('packageContainer');
+        const calendarSection = document.getElementById('calendarSection');
+        const modal = document.getElementById('globalModal');
+        const modalContent = document.getElementById('modalContent');
+
+        initialBtn.addEventListener('click', () => {
+            initialBtn.parentElement.classList.add('hidden');
+            bookingStepsDiv.classList.remove('hidden');
+            vehicleStepDiv.classList.remove('hidden');
+            packageStepDiv.classList.add('hidden');
+            calendarSection.classList.add('hidden');
+            currentVehicle = null;
+        });
+
+        document.querySelectorAll('.vehicle-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                document.querySelectorAll('.vehicle-option').forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                currentVehicle = opt.getAttribute('data-vehicle');
+                vehicleStepDiv.classList.add('hidden');
+                packageStepDiv.classList.remove('hidden');
+                renderPackages();
+            });
+        });
+
+        function renderPackages() {
+            const prices = priceMap[currentVehicle];
+            if (!prices) return;
+            packageContainer.innerHTML = `
+            <div class="package-card"><h3>Basic Wash</h3><div class="package-price">₱${prices.basic}</div><button class="btn-outline" data-package="basic" data-action="details">Details</button><button class="btn-select" data-package="basic" data-action="select">Select Package</button></div>
+            <div class="package-card"><h3>Premium Wash</h3><div class="package-price">₱${prices.premium}</div><button class="btn-outline" data-package="premium" data-action="details">Details</button><button class="btn-select" data-package="premium" data-action="select">Select Package</button></div>
+          `;
+            document.querySelectorAll('.btn-outline').forEach(btn => {
+                btn.addEventListener('click', () => showPackageDetails(btn.getAttribute('data-package')));
+            });
+            document.querySelectorAll('.btn-select').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedPackage = btn.getAttribute('data-package');
+                    selectedPackagePrice = priceMap[currentVehicle][selectedPackage];
+                    showCustomerInfoModal();
+                });
+            });
+        }
+
+        function showPackageDetails(pkg) {
+            const isPremium = pkg === 'premium';
+            const features = isPremium ?
+                ['Light Asphalt Removal', 'Glass Cleaning', 'Interior Vacuum', 'Exterior Wash', 'Back To Black', 'Wax',
+                    'Leather Protectant'
+                ] :
+                ['Interior Vacuum', 'Exterior Wash'];
+            let html = `<h3 style="color:var(--sky);">${pkg === 'basic' ? 'Basic Wash' : 'Premium Wash'} - Included:</h3><ul class="feature-list">`;
+            features.forEach(f => html += `<li>${f}</li>`);
+            html += `</ul><button class="btn-select" id="closeDetailsModal">Close</button>`;
+            modalContent.innerHTML = html;
+            modal.style.display = 'flex';
+            document.getElementById('closeDetailsModal').addEventListener('click', () => modal.style.display = 'none');
+        }
+
+        function showCustomerInfoModal() {
+            let html = `
+            <h3 style="color:var(--sky);">Your Information</h3>
+            <label>Full Name *</label><input type="text" id="modalFullName">
+            <label>Phone Number *</label><input type="tel" id="modalPhone">
+            <label>Service Address *</label><input type="text" id="modalAddress">
+            <label>Vehicle Year *</label><input type="text" id="modalYear">
+            <label>Vehicle Make *</label><input type="text" id="modalMake">
+            <label>Vehicle Model *</label><input type="text" id="modalModel">
+            <label>Additional Information</label><textarea id="modalAdditional" rows="2"></textarea>
+            <button id="nextBtnModal" class="btn-select" style="margin-top:1rem;">Next</button>
+          `;
+            modalContent.innerHTML = html;
+            modal.style.display = 'flex';
+            document.getElementById('nextBtnModal').addEventListener('click', () => {
+                const fullName = document.getElementById('modalFullName').value.trim();
+                const phone = document.getElementById('modalPhone').value.trim();
+                const address = document.getElementById('modalAddress').value.trim();
+                const year = document.getElementById('modalYear').value.trim();
+                const make = document.getElementById('modalMake').value.trim();
+                const model = document.getElementById('modalModel').value.trim();
+                const additional = document.getElementById('modalAdditional').value;
+                if (!fullName || !phone || !address || !year || !make || !model) {
+                    alert('Please fill all required fields.');
+                    return;
+                }
+                customerInfo = { fullName, phone, address, year, make, model, additional };
+                modal.style.display = 'none';
+                packageStepDiv.classList.add('hidden');
+                calendarSection.classList.remove('hidden');
+                initCalendar();
+            });
+        }
+
+        // ── Calendar ──
+        let currentCalendarDate = new Date();
+        let calendarSelectedDate = null;
+        let calendarSelectedTime = null;
+        const allTimes = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        function initCalendar() {
+            renderCalendar();
+            document.getElementById('prevMonthCal').addEventListener('click', () => {
+                currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+                renderCalendar();
+                hideTimePanel();
+            });
+            document.getElementById('nextMonthCal').addEventListener('click', () => {
+                currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+                renderCalendar();
+                hideTimePanel();
+            });
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const container = document.getElementById('calendarDaysCal');
+            container.innerHTML = '';
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.classList.add('cal-day', 'disabled');
+                empty.style.visibility = 'hidden';
+                container.appendChild(empty);
+            }
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateObj = new Date(year, month, d);
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('cal-day');
+                dayDiv.innerText = d;
+                if (dateStr < todayStr) dayDiv.classList.add('disabled');
+                if (dateObj.getDay() === 0) dayDiv.classList.add('sunday-disabled');
+                if (calendarSelectedDate === dateStr) dayDiv.classList.add('selected');
+                if (!(dateStr < todayStr) && dateObj.getDay() !== 0) {
+                    dayDiv.addEventListener('click', () => {
+                        document.querySelectorAll('#calendarDaysCal .cal-day').forEach(el => el.classList.remove(
+                        'selected'));
+                        dayDiv.classList.add('selected');
+                        calendarSelectedDate = dateStr;
+                        showTimePanel(dateStr);
+                    });
+                }
+                container.appendChild(dayDiv);
+            }
+            document.getElementById('monthYearCal').innerText = currentCalendarDate.toLocaleDateString('en-US', { month: 'short',
+                year: 'numeric' });
+        }
+
+        function hideTimePanel() {
+            document.getElementById('timePanelCal').style.display = 'none';
+            calendarSelectedDate = null;
+            calendarSelectedTime = null;
+            const doneBtn = document.getElementById('doneBookingBtn');
+            doneBtn.classList.remove('active');
+            doneBtn.disabled = true;
+        }
+
+        function showTimePanel(dateStr) {
+            const panel = document.getElementById('timePanelCal');
+            document.getElementById('selectedDateLabel').innerHTML = `<i class="far fa-calendar-alt"></i> ${dateStr}`;
+            const slotsDiv = document.getElementById('timeSlotsCal');
+            slotsDiv.innerHTML = '';
+            allTimes.forEach(slot => {
+                const chip = document.createElement('div');
+                chip.classList.add('time-chip');
+                chip.innerText = slot;
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('#timeSlotsCal .time-chip').forEach(c => c.classList.remove(
+                        'selected-time'));
+                    chip.classList.add('selected-time');
+                    calendarSelectedTime = slot;
+                    const doneBtn = document.getElementById('doneBookingBtn');
+                    doneBtn.classList.add('active');
+                    doneBtn.disabled = false;
+                });
+                slotsDiv.appendChild(chip);
+            });
+            panel.style.display = 'block';
+        }
+
+        const doneBtn = document.getElementById('doneBookingBtn');
+        doneBtn.addEventListener('click', () => {
+            if (!calendarSelectedDate || !calendarSelectedTime) {
+                alert('Please select a date and time.');
+                return;
+            }
+            const message = `✅ Booking Summary
+        Vehicle: ${currentVehicle.toUpperCase()}
+        Package: ${selectedPackage === 'basic' ? 'Basic Wash' : 'Premium Wash'} (₱${selectedPackagePrice})
+        Name: ${customerInfo.fullName}
+        Phone: ${customerInfo.phone}
+        Address: ${customerInfo.address}
+        Vehicle: ${customerInfo.year} ${customerInfo.make} ${customerInfo.model}
+        Date: ${calendarSelectedDate}
+        Time: ${calendarSelectedTime}
+        Additional: ${customerInfo.additional || 'None'}
+
+        Thank you! We will contact you to confirm.`;
+            alert(message);
+        });
+    </script>
 </body>
 </html>
