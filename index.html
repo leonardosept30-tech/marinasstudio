@@ -52,7 +52,7 @@
             flex-direction: column;
         }
 
-        /* Rotating image at the very top - bigger on mobile */
+        /* Rotating image at the very top */
         .top-rotating-logo {
             text-align: center;
             padding: 2rem 1rem 1rem;
@@ -68,15 +68,9 @@
             backface-visibility: visible;
         }
         @keyframes flipSlow {
-            0% {
-                transform: rotateY(0deg);
-            }
-            50% {
-                transform: rotateY(180deg);
-            }
-            100% {
-                transform: rotateY(0deg);
-            }
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+            100% { transform: rotateY(0deg); }
         }
 
         /* ── Gooey Banner ── */
@@ -153,39 +147,143 @@
             }
         }
 
-        /* ── video section ── */
-        .video-section {
+        /* ── Card Stack (taller) ── */
+        .card-stack-section {
             max-width: 1200px;
             margin: 3rem auto;
             padding: 0 1rem;
-        }
-        .video-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-        .video-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            width: 300px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-        }
-        .video-card h3 {
-            color: var(--sky);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-        .video-card video {
             width: 100%;
-            border-radius: 0.8rem;
-            outline: none;
         }
 
-        /* ── booking flow ── */
+        .card-stack-wrapper {
+            position: relative;
+            height: 420px;  /* increased from 380px */
+            width: 100%;
+            max-width: 644px;
+            margin: 0 auto;
+        }
+
+        .stack-card {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 100%;
+            max-width: 512px;
+            height: 320px;   /* increased from 280px */
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem 1.5rem 0 0;
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            will-change: transform;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stack-card .card-video {
+            flex: 1;
+            width: 100%;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            background: #000;
+            min-height: 0; /* for flex */
+        }
+        .stack-card .card-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .stack-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0.25rem 0;
+            flex-shrink: 0;
+        }
+        .stack-card .card-footer .card-title {
+            font-weight: 600;
+            color: var(--sky);
+            font-size: 1.1rem;
+        }
+        /* removed .card-desc */
+        .stack-card .card-footer .btn-playpause {
+            background: var(--sky);
+            color: #0A2A3A;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.2s;
+            min-width: 80px;
+            justify-content: center;
+        }
+        .stack-card .card-footer .btn-playpause:hover {
+            background: #CAF0F8;
+        }
+
+        .stack-card.exit {
+            transform: translateX(-50%) translateY(340px) scale(1);
+            opacity: 0;
+            z-index: 10;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+        }
+
+        .stack-card.enter {
+            transform: translateX(-50%) translateY(-16px) scale(0.9);
+            opacity: 1;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+        }
+
+        /* positions for three cards (bottom‑up) */
+        .stack-card.pos-0 {
+            transform: translateX(-50%) translateY(12px) scale(1);
+            z-index: 3;
+        }
+        .stack-card.pos-1 {
+            transform: translateX(-50%) translateY(-16px) scale(0.95);
+            z-index: 2;
+        }
+        .stack-card.pos-2 {
+            transform: translateX(-50%) translateY(-44px) scale(0.9);
+            z-index: 1;
+        }
+
+        /* button row */
+        .stack-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 0.8rem 0;
+            border-top: 1px solid var(--glass-border);
+        }
+        .stack-controls button {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--sky);
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            font-size: 1rem;
+        }
+        .stack-controls button:hover {
+            background: rgba(142, 202, 230, 0.25);
+        }
+        .stack-controls button:active {
+            transform: scale(0.95);
+        }
+
+        /* ── Booking flow (unchanged) ── */
         .main-content {
             flex: 1;
             display: flex;
@@ -473,9 +571,15 @@
         }
 
         @media (max-width: 760px) {
-            .video-card {
-                width: 100%;
-                max-width: 320px;
+            .stack-card {
+                max-width: 100%;
+                height: 260px; /* taller on mobile too */
+            }
+            .card-stack-wrapper {
+                height: 360px;
+            }
+            .stack-card .card-footer .card-title {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -489,9 +593,7 @@
             <img src="Untitled design.png" alt="Mariñas Studio" onerror="this.src='https://placehold.co/400x400?text=MARI%C3%91AS'">
         </div>
 
-        <!-- ════════════════════════════════════════ -->
-        <!--  GOOEY BANNER (SLOW DISPLAY, SAME WARP) -->
-        <!-- ════════════════════════════════════════ -->
+        <!-- Gooey Banner -->
         <div class="hero-gooey">
             <svg class="absolute h-0 w-0" aria-hidden="true" focusable="false" style="position:absolute;left:-9999px;">
                 <defs>
@@ -516,14 +618,15 @@
             <div class="hero-tagline">Professional Hand Wash · Ceramic Coating · Interior Detailing</div>
         </div>
 
-        <!-- Video Section -->
-        <div class="video-section">
-            <div class="video-grid">
-                <div class="video-card"><h3>PMS</h3><video controls preload="metadata"><source src="PMS.mp4" type="video/mp4"></video></div>
-                <div class="video-card"><h3>Engine Bay Cleaning</h3><video controls preload="metadata"><source src="EngineBayCleaning.mp4" type="video/mp4"></video></div>
-                <div class="video-card"><h3>Alternator Replacement</h3><video controls preload="metadata"><source src="AlternatorReplacement.mp4" type="video/mp4"></video></div>
+        <!-- ── CARD STACK ── -->
+        <section class="card-stack-section">
+            <div class="card-stack-wrapper" id="stackContainer">
+                <!-- Cards will be injected by JS -->
             </div>
-        </div>
+            <div class="stack-controls">
+                <button id="stackNextBtn">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </section>
 
         <!-- Booking flow -->
         <div class="main-content">
@@ -610,9 +713,7 @@
     </div>
 
     <script>
-        // ──────────────────────────────────────────────────────────────
-        //  FLUID PARTICLES
-        // ──────────────────────────────────────────────────────────────
+        // ── FLUID PARTICLES ──
         const fluidCanvas = document.getElementById('fluid-canvas');
         const ctx = fluidCanvas.getContext('2d');
         let ww = window.innerWidth,
@@ -673,30 +774,19 @@
         }
         animateFluid();
 
-        // ──────────────────────────────────────────────────────────────
-        //  GOOEY TEXT MORPH  (text stays longer, warp speed unchanged)
-        // ──────────────────────────────────────────────────────────────
+        // ── GOOEY TEXT MORPH ──
         (function() {
-            'use strict';
-
             const texts = [
                 'Premium Car Wash & Detailing',
                 'Give Your Car The Shine It Deserves'
             ];
-
-            // ── Warp speed stays the same (2.8s) ──
-            // ── Display pause is now longer (2.0s up from 0.9s) ──
-            const morphTime = 2.8; // warping speed (unchanged)
-            const cooldownTime = 2.0; // text stays visible longer
-
+            const morphTime = 2.8;
+            const cooldownTime = 2.0;
             const text1El = document.getElementById('gooeyText1');
             const text2El = document.getElementById('gooeyText2');
-
             if (!text1El || !text2El) return;
-
             text1El.textContent = texts[0];
             text2El.textContent = texts[1];
-
             let textIndex = texts.length - 1;
             let time = new Date();
             let morph = 0;
@@ -705,14 +795,11 @@
             function setMorph(fraction) {
                 const blur2 = Math.min(8 / fraction - 8, 100);
                 const opacity2 = Math.pow(fraction, 0.4) * 100;
-
                 const f2 = 1 - fraction;
                 const blur1 = Math.min(8 / f2 - 8, 100);
                 const opacity1 = Math.pow(f2, 0.4) * 100;
-
                 text2El.style.filter = `blur(${blur2}px)`;
                 text2El.style.opacity = `${opacity2}%`;
-
                 text1El.style.filter = `blur(${blur1}px)`;
                 text1El.style.opacity = `${opacity1}%`;
             }
@@ -729,25 +816,20 @@
                 morph -= cooldown;
                 cooldown = 0;
                 let fraction = morph / morphTime;
-
                 if (fraction > 1) {
                     cooldown = cooldownTime;
                     fraction = 1;
                 }
-
                 setMorph(fraction);
             }
 
             function animate() {
                 requestAnimationFrame(animate);
-
                 const newTime = new Date();
                 const shouldIncrementIndex = cooldown > 0;
                 const dt = (newTime.getTime() - time.getTime()) / 1000;
                 time = newTime;
-
                 cooldown -= dt;
-
                 if (cooldown <= 0) {
                     if (shouldIncrementIndex) {
                         textIndex = (textIndex + 1) % texts.length;
@@ -759,13 +841,145 @@
                     doCooldown();
                 }
             }
-
             animate();
         })();
 
-        // ──────────────────────────────────────────────────────────────
-        //  BOOKING FLOW
-        // ──────────────────────────────────────────────────────────────
+        // ── CARD STACK (vanilla JS, manual next, play/pause) ──
+        (function() {
+            const container = document.getElementById('stackContainer');
+            const nextBtn = document.getElementById('stackNextBtn');
+
+            // Video data
+            const videos = [
+                { title: 'PMS', src: 'PMS.mp4' },
+                { title: 'Engine Bay Cleaning', src: 'EngineBayCleaning.mp4' },
+                { title: 'Alternator Replacement', src: 'AlternatorReplacement.mp4' }
+            ];
+
+            // Card order: front to back
+            let cardOrder = [0, 1, 2];
+            const cardElements = [];
+
+            function buildCard(videoIndex) {
+                const data = videos[videoIndex];
+                const card = document.createElement('div');
+                card.className = 'stack-card';
+                card.dataset.videoIndex = videoIndex;
+                card.innerHTML = `
+                <div class="card-video">
+                  <video muted loop preload="metadata" playsinline>
+                    <source src="${data.src}" type="video/mp4">
+                  </video>
+                </div>
+                <div class="card-footer">
+                  <div class="card-title">${data.title}</div>
+                  <button class="btn-playpause">
+                    <i class="fas fa-play"></i> Play
+                  </button>
+                </div>
+              `;
+                const videoEl = card.querySelector('video');
+                const btn = card.querySelector('.btn-playpause');
+
+                // Play/Pause toggle
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (videoEl.paused) {
+                        videoEl.play().catch(() => {});
+                        btn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                    } else {
+                        videoEl.pause();
+                        btn.innerHTML = '<i class="fas fa-play"></i> Play';
+                    }
+                });
+
+                // Also play when clicking the card (optional)
+                card.addEventListener('click', () => {
+                    if (videoEl.paused) {
+                        videoEl.play().catch(() => {});
+                        btn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                    }
+                });
+
+                // When video ends, reset button
+                videoEl.addEventListener('ended', () => {
+                    btn.innerHTML = '<i class="fas fa-play"></i> Play';
+                });
+
+                // Autoplay when card becomes visible (only for front card)
+                // We'll handle via intersection observer to auto-play only when card is frontmost
+                // But we can also just let user click.
+
+                return card;
+            }
+
+            // Create initial cards
+            for (let i = 0; i < 3; i++) {
+                const card = buildCard(i);
+                container.appendChild(card);
+                cardElements.push(card);
+            }
+
+            // Position cards based on order
+            function positionCards() {
+                const positions = [
+                    { scale: 1, y: 12, z: 3 },
+                    { scale: 0.95, y: -16, z: 2 },
+                    { scale: 0.9, y: -44, z: 1 }
+                ];
+                for (let i = 0; i < 3; i++) {
+                    const cardIdx = cardOrder[i];
+                    const cardEl = cardElements[cardIdx];
+                    const pos = positions[i];
+                    cardEl.style.transform = `translateX(-50%) translateY(${pos.y}px) scale(${pos.scale})`;
+                    cardEl.style.zIndex = pos.z;
+                    cardEl.style.opacity = '1';
+                    cardEl.classList.remove('exit', 'enter');
+                }
+            }
+
+            positionCards();
+
+            // Animate to next (manual, no auto)
+            function animateNext() {
+                const frontIdx = cardOrder[0];
+                const frontEl = cardElements[frontIdx];
+
+                // Determine next video index
+                const currentVideoIdx = frontIdx;
+                const nextVideoIdx = (currentVideoIdx + 1) % videos.length;
+
+                // Update content of the front card with next video
+                const newData = videos[nextVideoIdx];
+                const videoEl = frontEl.querySelector('video');
+                const source = videoEl.querySelector('source');
+                source.src = newData.src;
+                videoEl.load();
+                // Reset play button
+                const btn = frontEl.querySelector('.btn-playpause');
+                btn.innerHTML = '<i class="fas fa-play"></i> Play';
+                // Update title
+                frontEl.querySelector('.card-title').textContent = newData.title;
+                frontEl.dataset.videoIndex = nextVideoIdx;
+
+                // Recycle: move front card to back
+                cardOrder.shift();
+                cardOrder.push(frontIdx);
+
+                // Reposition with transition
+                positionCards();
+
+                // After reposition, the front card (new front) will be at index 0.
+                // We might want to auto-play the new front card? Not required, user clicks.
+            }
+
+            nextBtn.addEventListener('click', animateNext);
+
+            // Remove auto-advance – no interval set.
+
+        })();
+
+        // ── BOOKING FLOW (unchanged) ──
         let currentVehicle = null;
         let selectedPackage = null;
         let selectedPackagePrice = 0;
