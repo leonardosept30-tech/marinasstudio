@@ -73,11 +73,11 @@
             100% { transform: rotateY(0deg); }
         }
 
-        /* ── Gooey Banner ── */
+        /* ── Gooey Banner (BIGGER TEXT) ── */
         .hero-gooey {
             text-align: center;
             padding: 0.5rem 2rem 2rem;
-            min-height: 180px;
+            min-height: 220px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -90,7 +90,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            min-height: 120px;
+            min-height: 140px;
         }
 
         .gooey-text {
@@ -99,8 +99,8 @@
             text-align: center;
             user-select: none;
             font-weight: 800;
-            font-size: 3rem;
-            line-height: 1.2;
+            font-size: 4rem;        /* increased from 3rem */
+            line-height: 1.15;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, #ffffff, #8ECAE6);
             background-clip: text;
@@ -112,7 +112,7 @@
         }
 
         .hero-tagline {
-            margin-top: 2.4rem;
+            margin-top: 2.8rem;
             font-size: 1.4rem;
             color: var(--light-sky);
             font-weight: 500;
@@ -127,10 +127,10 @@
             }
             .hero-gooey {
                 padding: 0.5rem 1rem 1.5rem;
-                min-height: 140px;
+                min-height: 160px;
             }
             .gooey-text {
-                font-size: 2rem;
+                font-size: 2.6rem;   /* bigger on mobile too */
             }
             .hero-tagline {
                 font-size: 1.2rem;
@@ -139,7 +139,7 @@
         }
         @media (max-width: 480px) {
             .gooey-text {
-                font-size: 1.6rem;
+                font-size: 2rem;
             }
             .hero-tagline {
                 font-size: 1rem;
@@ -147,7 +147,7 @@
             }
         }
 
-        /* ── Card Stack (taller) ── */
+        /* ── Card Stack (TALLER) ── */
         .card-stack-section {
             max-width: 1200px;
             margin: 3rem auto;
@@ -157,7 +157,7 @@
 
         .card-stack-wrapper {
             position: relative;
-            height: 420px;  /* increased from 380px */
+            height: 460px;          /* increased from 420px */
             width: 100%;
             max-width: 644px;
             margin: 0 auto;
@@ -170,7 +170,7 @@
             bottom: 0;
             width: 100%;
             max-width: 512px;
-            height: 320px;   /* increased from 280px */
+            height: 360px;          /* increased from 320px */
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border-radius: 1.5rem 1.5rem 0 0;
@@ -189,7 +189,7 @@
             border-radius: 0.8rem;
             overflow: hidden;
             background: #000;
-            min-height: 0; /* for flex */
+            min-height: 0;
         }
         .stack-card .card-video video {
             width: 100%;
@@ -209,7 +209,6 @@
             color: var(--sky);
             font-size: 1.1rem;
         }
-        /* removed .card-desc */
         .stack-card .card-footer .btn-playpause {
             background: var(--sky);
             color: #0A2A3A;
@@ -243,7 +242,6 @@
             transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
         }
 
-        /* positions for three cards (bottom‑up) */
         .stack-card.pos-0 {
             transform: translateX(-50%) translateY(12px) scale(1);
             z-index: 3;
@@ -257,7 +255,6 @@
             z-index: 1;
         }
 
-        /* button row */
         .stack-controls {
             display: flex;
             justify-content: center;
@@ -573,10 +570,10 @@
         @media (max-width: 760px) {
             .stack-card {
                 max-width: 100%;
-                height: 260px; /* taller on mobile too */
+                height: 280px; /* taller on mobile too */
             }
             .card-stack-wrapper {
-                height: 360px;
+                height: 380px;
             }
             .stack-card .card-footer .card-title {
                 font-size: 0.9rem;
@@ -844,19 +841,17 @@
             animate();
         })();
 
-        // ── CARD STACK (vanilla JS, manual next, play/pause) ──
+        // ── CARD STACK (with sound, taller, manual next) ──
         (function() {
             const container = document.getElementById('stackContainer');
             const nextBtn = document.getElementById('stackNextBtn');
 
-            // Video data
             const videos = [
                 { title: 'PMS', src: 'PMS.mp4' },
                 { title: 'Engine Bay Cleaning', src: 'EngineBayCleaning.mp4' },
                 { title: 'Alternator Replacement', src: 'AlternatorReplacement.mp4' }
             ];
 
-            // Card order: front to back
             let cardOrder = [0, 1, 2];
             const cardElements = [];
 
@@ -867,7 +862,7 @@
                 card.dataset.videoIndex = videoIndex;
                 card.innerHTML = `
                 <div class="card-video">
-                  <video muted loop preload="metadata" playsinline>
+                  <video loop preload="metadata" playsinline>
                     <source src="${data.src}" type="video/mp4">
                   </video>
                 </div>
@@ -881,7 +876,7 @@
                 const videoEl = card.querySelector('video');
                 const btn = card.querySelector('.btn-playpause');
 
-                // Play/Pause toggle
+                // Play/Pause toggle with sound
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     if (videoEl.paused) {
@@ -893,7 +888,6 @@
                     }
                 });
 
-                // Also play when clicking the card (optional)
                 card.addEventListener('click', () => {
                     if (videoEl.paused) {
                         videoEl.play().catch(() => {});
@@ -901,26 +895,19 @@
                     }
                 });
 
-                // When video ends, reset button
                 videoEl.addEventListener('ended', () => {
                     btn.innerHTML = '<i class="fas fa-play"></i> Play';
                 });
 
-                // Autoplay when card becomes visible (only for front card)
-                // We'll handle via intersection observer to auto-play only when card is frontmost
-                // But we can also just let user click.
-
                 return card;
             }
 
-            // Create initial cards
             for (let i = 0; i < 3; i++) {
                 const card = buildCard(i);
                 container.appendChild(card);
                 cardElements.push(card);
             }
 
-            // Position cards based on order
             function positionCards() {
                 const positions = [
                     { scale: 1, y: 12, z: 3 },
@@ -940,43 +927,30 @@
 
             positionCards();
 
-            // Animate to next (manual, no auto)
             function animateNext() {
                 const frontIdx = cardOrder[0];
                 const frontEl = cardElements[frontIdx];
 
-                // Determine next video index
                 const currentVideoIdx = frontIdx;
                 const nextVideoIdx = (currentVideoIdx + 1) % videos.length;
 
-                // Update content of the front card with next video
                 const newData = videos[nextVideoIdx];
                 const videoEl = frontEl.querySelector('video');
                 const source = videoEl.querySelector('source');
                 source.src = newData.src;
                 videoEl.load();
-                // Reset play button
+                // reset play button
                 const btn = frontEl.querySelector('.btn-playpause');
                 btn.innerHTML = '<i class="fas fa-play"></i> Play';
-                // Update title
                 frontEl.querySelector('.card-title').textContent = newData.title;
                 frontEl.dataset.videoIndex = nextVideoIdx;
 
-                // Recycle: move front card to back
                 cardOrder.shift();
                 cardOrder.push(frontIdx);
-
-                // Reposition with transition
                 positionCards();
-
-                // After reposition, the front card (new front) will be at index 0.
-                // We might want to auto-play the new front card? Not required, user clicks.
             }
 
             nextBtn.addEventListener('click', animateNext);
-
-            // Remove auto-advance – no interval set.
-
         })();
 
         // ── BOOKING FLOW (unchanged) ──
